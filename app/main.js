@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDom from "react-dom";
-import Button from './react/component/Button';
+import ReactButton from './react/component/Button';
 import 'babel-polyfill';
+import reactClassFactory from './ReactClassFactory';
 
-class Storeable {
+class Store {
+    constructor() {
+
+    }
+}
+
+class UpdateNotify {
 
     constructor() {
         this.listeners = [];
@@ -12,27 +19,45 @@ class Storeable {
     getSate() {
         throw new Error("subclass implement");
     }
-    
-    notifUpdate(){
-        this.listeners.forEach(listener=>listener(this.id));
+
+    notifUpdate() {
+        this.listeners.forEach(listener => listener(this.id));
     }
-    
+
     onUpdate(listener) {
         this.listeners.push(listener);
     }
+
+
 }
 
-class Component extends Storeable {
+class Component extends UpdateNotify {
     constructor() {
         super();
     }
 
     get id() {
-        return this.id;
+        return this._id;
     }
 
     set id(id) {
-        this.id = id;
+        this._id = id;
+    }
+
+    get parent() {
+        return this._parent;
+    }
+
+    set parent(parent) {
+        this._parent = parent;
+    }
+
+    getStore() {
+        if (this.parnet) {
+            return this.parent.getStore();
+        }
+        this.store = new Store();
+        return this.store;
     }
 }
 
@@ -44,7 +69,7 @@ class Container extends Component {
 
 
 class Button1 extends Component {
-
+    
     constructor(label) {
         super();
         this.label = label;
@@ -54,6 +79,8 @@ class Button1 extends Component {
         return { label: this.label };
     }
 }
+Button1.prototype.type = "my.Button";
+reactClassFactory.register(Button1.prototype.type , ReactButton);
 
 class Page extends Container {
 
@@ -65,6 +92,7 @@ class Page extends Container {
 
     render(containerElement, component) {
         console.log("page render");
+        return <div></div>;
     }
 
     append(component) {
@@ -83,4 +111,5 @@ class MyPage extends Page {
 
 var mypage = new MyPage();
 
-ReactDom.render(<Button/>, document.getElementById("root"));
+
+ReactDom.render(<ReactButton/>, document.getElementById("root"));
