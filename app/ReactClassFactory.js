@@ -37,10 +37,12 @@ function connect(instance, store) {
 
             componentDidMount() {
                 this.trySubscribe();
+                
             }
 
             componentWillUnmount() {
                 this.tryUnsubscribe();
+                //这里需要通知组件自己删除自己
             }
 
             handleChange() {

@@ -10,7 +10,7 @@ import _ from 'lodash';
 class StoreProxy {
 
     constructor() {
-        this.store = createStore(this.setState.bind(this), {root:null,components:{}});
+        this.store = createStore(this.setState.bind(this), { root: null, components: {} });
     }
 
     subscribe(listener) {
@@ -26,9 +26,9 @@ class StoreProxy {
     setState(state, action) {
         if (action.type == "CHANGE_DATA") {
             return _.assign({}, state, {
-                components : _.assign({} , state.components , {[action.payload.id]: action.payload})
+                components: _.assign({}, state.components, { [action.payload.id]: action.payload })
             });
-        }else if (action.type == "REMOVE_COMPONENT") {
+        } else if (action.type == "REMOVE_COMPONENT") {
             let id = action.payload.id;
             let _state = _.assign({}, state);
             delete _state['components'][id];
@@ -64,8 +64,8 @@ class Component {
         this._name = name;
         this.update();
     }
-    
-    get name(){
+
+    get name() {
         return this._name;
     }
 
@@ -86,6 +86,24 @@ class Component {
             return this._store;
         }
         return this._parnet.getStore();
+    }
+
+    /**
+     * 重新加载配置数据
+     * 
+     * @param data 初始配置
+     */
+    _reload(data) {
+        this.reload(data);
+        this.upate();
+    }
+
+    remove() {
+        this.update('REMOVE_COMPONENT', this);
+    }
+
+    reload(data) {
+        throw new Error("subclass implement");
     }
 
     getState() {
@@ -149,6 +167,7 @@ function render(component, containerElement) {
     storeProxy.bind(component);
     component.label = "aaaaaa";
     component.name = "testButton";
+    component.remove();
 }
 
 render(myButton, document.getElementById("root"));
