@@ -162,15 +162,68 @@ ButtonComponent.prototype.type = "my.Button";
 var myButton = new ButtonComponent();
 
 
+class GridLayout{
+    constructor(width , height) {
+        this._width = width || 12;
+        this._height = heigth || 12;
+    }
+    
+    set width(width) {
+        this._width = width;
+    }
+    
+    get width() {
+        return this._width;
+    }
+    
+    set heigth(heigth) {
+        this._height = height;
+    }
+    
+    append(component , size){
+        
+    }
+}
+
+class MyPage extends Container{
+    
+    constructor(props) {
+        super(props);
+        this.rootLayout = new GridLayout();
+        this.append(this.rootLayout);
+        
+        this.button = new ButtonComponent();
+        this.rootLayout.append(this.button , {width:5 , height:1});
+    }
+    
+}
+
+var myPage = new MyPage();
+
 function render(component, containerElement) {
     var storeProxy = new StoreProxy();
     storeProxy.bind(component);
     component.label = "aaaaaa";
     component.name = "testButton";
     component.remove();
+    
+    var component1 = new ButtonComponent();
+    storeProxy.bind(component1);
+    component1.label = "A";
+    component1.name = "b";
+    
+    var component1 = new ButtonComponent();
+    storeProxy.bind(component1);
+    component1.label = "A";
+    component1.name = "b";
 }
 
 render(myButton, document.getElementById("root"));
 
+// function render(component, containerElement) {
+//     var storeProxy = new StoreProxy();
+//     storeProxy.bind(component);    
+// }
+//render(myPage , document.getElementById("root"));
 
 //ReactDom.render(<ReactButton/ > , document.getElementById("root"));
