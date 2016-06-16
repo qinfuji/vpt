@@ -1,18 +1,5 @@
-import {
-    createStore,
-    combineReducers,
-    compose
-} from 'redux';
-import {
-    createAction,
-    createReducer,
-    assignAll
-} from 'redux-act';
-
-
-
-const setChildren = createAction('setChildren', children => children);
-const initData = {};
+import {createStore,combineReducers,compose} from 'redux';
+import {createAction,createReducer,assignAll} from 'redux-act';
 
 const emptyFun = function() {};
 
@@ -30,14 +17,6 @@ function wrapAction(action , reduce) {
         action.assignTo(this.store);
         action.apply(action, args);
     };
-}
-var mergeStoreAction = createAction("mergeStoreAction" , store=>store);
-
-function mergeStore(targetStore , attachStore) {
-    return _store.subscribe(function() {
-        var chlidren = _store.getState();
-        setChildren(chlidren);
-    });
 }
 
 const setId = createAction('setId', id => id);
