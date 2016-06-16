@@ -31,11 +31,11 @@ function Component(initData = {} , store){
     this.store = createStore(reduce, initData);
     this.setId(this.type+"_"+genId());
 }
-Component.prototype.setParent = function(parent){
+Component.prototype.setParent = function (parent) {
+  parent.mergeChild(this.store.getState());
+  this.unsubscribe = this.store.subscribe(() => {
     parent.mergeChild(this.store.getState());
-    this.store.subscribe(()=>{
-       parent.mergeChild(this.store.getState());
-    });
+  });
 };
 Component.prototype.setId = wrapAction(setId , (state, id) => ({...state, id: id }));
 
@@ -61,8 +61,11 @@ Container.prototype = Object.create(Component.prototype);
 Container.prototype.mergeChild = wrapAction(mergeChild , (state , child)=>({
     ...state , children:{...state.children , [child.id]:child}
 }));
+Container.prototype.remove = function(component){
+   //删除子组件
+};
 Container.prototype.findChild = function(id){
-   //查询子
+   //查询子组件
 };
 Container.prototype.type = "Container";
 
