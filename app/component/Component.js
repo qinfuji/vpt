@@ -34,6 +34,25 @@ export default class Component {
         }));
     }
 
+    // get parent() {
+    //     return this._parent;
+    // }
+
+    // set parent(parent) {
+    //     this._parent = parent;
+    // }
+
+
+    // get context() {
+    //     var context = null;
+    //     if(this.parent){
+    //         context = this.parent.context;
+    //     }
+    //     if(!context){
+    //         //
+    //     }
+    //     return context;
+    // }
 
     getReactClass(storeContext) {
         storeContext.bind(this);
@@ -49,4 +68,5 @@ export default class Component {
         }
         return connect(mapStateToProps(this))(this.ReactClass);
     }
+
 }
