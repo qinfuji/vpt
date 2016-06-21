@@ -1,6 +1,24 @@
 import {createStore,combineReducers,compose} from 'redux';
 import {createAction,createReducer,assignAll} from 'redux-act';
 
+
+function _createReducer(asyncReducers) {
+  return combineReducers({
+    ...asyncReducers
+  });
+}
+
+function configureStore(initialState) {
+  let store = createStore(_createReducer(), initialState);
+  store.asyncReducers = {};
+  return store;
+}
+
+function injectAsyncReducer(store, name, asyncReducer) {
+  store.asyncReducers[name] = asyncReducer;
+  store.replaceReducer(_createReducer(store.asyncReducers));
+}
+
 const emptyFun = function() {};
 
 const genId = function() {
@@ -20,24 +38,19 @@ function wrapAction(action , reduce) {
 }
 
 const setId = createAction('setId', id => id);
-function Component(initData = {} , store){
-    if(store){
-       this.store = store;
-       return;
-    }
+function Component(store ,initData = {}){
+    this.store = store;
     this.handlers = {};
     let reduce = createReducer(this.handlers, initData);
     this.handlers[setId] = (state, id) => ({...state, id: id });
-    this.store = createStore(reduce, initData);
-    this.setId(this.type+"_"+genId());
+    if(!initData.id){
+       initData.id = this.type+"_"+genId();
+    }
+    injectAsyncReducer(store , initData.id , reduce);
+    this.setId(initData.id);
 }
-Component.prototype.setParent = function (parent) {
-  parent.mergeChild(this.store.getState());
-  this.unsubscribe = this.store.subscribe(() => {
-    parent.mergeChild(this.store.getState());
-  });
-};
 Component.prototype.setId = wrapAction(setId , (state, id) => ({...state, id: id }));
+
 
 const setLabel = createAction('setLabel', label => label);
 function Button(initData = initData , store) {
@@ -52,58 +65,17 @@ Button.prototype.getLabel = function(){
    return this.store.getState().label;
 };
 
-const mergeChild = createAction("mergeChild" , child=>child);
-function Container(initData = {children:{}} , store){
-   Component.apply(this, arguments);
-}
-Container.prototype.constructor = Container;
-Container.prototype = Object.create(Component.prototype);
-Container.prototype.mergeChild = wrapAction(mergeChild , (state , child)=>({
-    ...state , children:{...state.children , [child.id]:child}
-}));
-Container.prototype.remove = function(component){
-   //删除子组件
+
+const store = configureStore({});
+const btn = new Button(store);
+btn.onClick = function(){
+    btn1.setLabel("onClick set Label");
 };
-Container.prototype.findChild = function(id){
-   //查询子组件
-};
-Container.prototype.type = "Container";
 
-var btn1 = new Button({
-    label: "InitLabel"
-});
-btn1.setLabel("labelhj");
-console.log(btn1.store.getState());
-console.log(btn1.getLabel());
-var container = new Container();
-console.log(container.store.getState());
-btn1.setParent(container);
-console.log(container.store.getState());
-
-btn1.setLabel("aaaaaa");
-console.log(btn1.store.getState());
-console.log(container.store.getState());
-// var btn2 = new Button();
-// btn2.setLabel("label2");
-
-
-// var btn3 = new Button(btn1.store.getState() , btn1.store);
-
-// console.log(btn1.store.getState());
-// console.log(btn2.store.getState());
-// console.log(btn3.store.getState());
-
-// console.log(btn3.store == btn1.store);
-
-// btn1.setLabel("label4");
-// //btn1.setId(1);
-// console.log(btn1.store.getState());
-// console.log(btn2.store.getState());
-// console.log(btn3.store.getState());
-
-
-
-// console.log(container.store.getState());
-
-// btn1.setLabel("aaaaa");
-// console.log(container.store.getState());
+const btn1 = new Button(store);
+console.log(store.getState());
+//const btn2 = new Button(store);
+//const btn3 = new Button(store);
+//btn.onClick();
+console.log(store.getState());
+//btn.setLabel("aaaa");
