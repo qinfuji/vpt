@@ -1,22 +1,30 @@
-import {createStore,combineReducers,compose} from 'redux';
-import {createAction,createReducer,assignAll} from 'redux-act';
+import {
+    createStore,
+    combineReducers,
+    compose
+} from 'redux';
+import {
+    createAction,
+    createReducer,
+    assignAll
+} from 'redux-act';
 
 
 function _createReducer(asyncReducers) {
-  return combineReducers({
-    ...asyncReducers
-  });
+    return combineReducers({
+        ...asyncReducers
+    });
 }
 
 function configureStore(initialState) {
-  let store = createStore(_createReducer(), initialState);
-  store.asyncReducers = {};
-  return store;
+    let store = createStore(_createReducer(), initialState);
+    store.asyncReducers = {};
+    return store;
 }
 
 function injectAsyncReducer(store, name, asyncReducer) {
-  store.asyncReducers[name] = asyncReducer;
-  store.replaceReducer(_createReducer(store.asyncReducers));
+    store.asyncReducers[name] = asyncReducer;
+    store.replaceReducer(_createReducer(store.asyncReducers));
 }
 
 const emptyFun = function() {};
@@ -28,54 +36,90 @@ const genId = function() {
     };
 }();
 
-function wrapAction(action , reduce) {
-    return function() {
-        var args = Array.prototype.slice.call(arguments);
-        this.handlers[action] = reduce;
-        action.assignTo(this.store);
-        action.apply(action, args);
+function bundleAction(component , action , reduce){
+    component.handlers[action] = reduce;
+    action.assignTo(component.store);
+}
+
+
+/**
+ * 所有组件的基类
+ * @param store
+ * @param initData
+ */
+function Component(store, initData = {} , isRef=false) {
+    this.store = store;
+    this.handlers = {};
+    let setId = createAction('setId', id => id);
+
+    this.bundleAction(setId , (state, id) => ({...state,id: id}));
+    initData.type = this.type;
+    let reduce = createReducer(this.handlers, initData);
+    if (!initData.id) { //如果id没有创建则需要构造reduce
+        initData.id = this.type + "_" + genId();
+        injectAsyncReducer(store, initData.id, reduce);
+        setId(initData.id);
+    }
+
+    this.getId = function(){
+        return initData.id;
     };
 }
 
-const setId = createAction('setId', id => id);
-function Component(store ,initData = {}){
-    this.store = store;
-    this.handlers = {};
-    let reduce = createReducer(this.handlers, initData);
-    this.handlers[setId] = (state, id) => ({...state, id: id });
-    if(!initData.id){
-       initData.id = this.type+"_"+genId();
-    }
-    injectAsyncReducer(store , initData.id , reduce);
-    this.setId(initData.id);
-}
-Component.prototype.setId = wrapAction(setId , (state, id) => ({...state, id: id }));
+Component.prototype.map = function(f){
+    let state = this.store.getState()[this.getId()];
+    return f(state);
+};
+
+Component.prototype.bundleAction = function(action , reduce){
+    this.handlers[action] = reduce;
+    action.assignTo(this.store);
+};
 
 
-const setLabel = createAction('setLabel', label => label);
-function Button(initData = initData , store) {
-   Component.apply(this, arguments);
+
+function Button(store ,initData = {}) {
+    Component.apply(this, arguments);
+    const setLabel = createAction('setLabel', label => label);
+    this.bundleAction(setLabel , (state, label) => ({...state,label: label}));
+    let _self = this;
+
+    return {
+        get label(){
+            return _self.map(function(state){
+                return state.label;
+            });
+        },
+        set label(label){
+            setLabel(label);
+        }
+    };
 }
 Button.prototype.constructor = Button;
 Button.prototype = Object.create(Component.prototype);
-Button.prototype.setLabel = wrapAction(setLabel , (state , label)=>({...state , label:label}));
 Button.prototype.onClick = emptyFun;
 Button.prototype.type = "Button";
-Button.prototype.getLabel = function(){
-   return this.store.getState().label;
-};
 
 
 const store = configureStore({});
 const btn = new Button(store);
-btn.onClick = function(){
-    btn1.setLabel("onClick set Label");
+btn.label = "Btn1";
+btn.onClick = function() {
+    btn1.label = ("onClick set Label");
 };
+
+console.log(btn.label);
 
 const btn1 = new Button(store);
 console.log(store.getState());
-//const btn2 = new Button(store);
-//const btn3 = new Button(store);
-//btn.onClick();
+const btn2 = new Button(store);
+const btn3 = new Button(store);
+btn.onClick();
 console.log(store.getState());
-//btn.setLabel("aaaa");
+btn.label = ("aaaa");
+
+console.log(store.getState());
+
+const btn4 = new Button(store , store.getState()['Button_2']);
+btn4.label = "AAAAAA";
+console.log(store.getState());
