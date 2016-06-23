@@ -46,6 +46,7 @@
   "dependencies": {
     "express": "^4.13.4",
     "lodash": "^4.11.2",
+    "ramda": "^0.21.0",
     "redux-act": "^0.4.2",
     "redux-actions": "^0.9.1"
   }

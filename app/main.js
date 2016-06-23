@@ -1,14 +1,9 @@
-import {
-    createStore,
-    combineReducers,
-    compose
-} from 'redux';
-import {
-    createAction,
-    createReducer,
-    assignAll
-} from 'redux-act';
-
+import ReactDom from "react-dom";
+import React from 'react';
+import {createStore,combineReducers,compose} from 'redux';
+import {createAction,createReducer,assignAll} from 'redux-act';
+import {connect, Provider} from 'react-redux';
+var R = require('ramda');
 
 function _createReducer(asyncReducers) {
     return combineReducers({
@@ -27,7 +22,9 @@ function injectAsyncReducer(store, name, asyncReducer) {
     store.replaceReducer(_createReducer(store.asyncReducers));
 }
 
+
 const emptyFun = function() {};
+
 
 const genId = function() {
     let id = 1;
@@ -50,6 +47,7 @@ function bundleAction(component , action , reduce){
 function Component(store, initData = {} , isRef=false) {
     this.store = store;
     this.handlers = {};
+    this.actions = {};
     let setId = createAction('setId', id => id);
 
     this.bundleAction(setId , (state, id) => ({...state,id: id}));
@@ -60,9 +58,15 @@ function Component(store, initData = {} , isRef=false) {
         injectAsyncReducer(store, initData.id, reduce);
         setId(initData.id);
     }
+    let _self = this;
+    return {
+        get id(){
+            return initData.id;
+        },
 
-    this.getId = function(){
-        return initData.id;
+        get type(){
+            return initData.type;
+        }
     };
 }
 
@@ -72,6 +76,7 @@ Component.prototype.map = function(f){
 };
 
 Component.prototype.bundleAction = function(action , reduce){
+    
     this.handlers[action] = reduce;
     action.assignTo(this.store);
 };
@@ -79,19 +84,18 @@ Component.prototype.bundleAction = function(action , reduce){
 
 
 function Button(store ,initData = {}) {
-    Component.apply(this, arguments);
+    var parent = Component.apply(this, arguments);
     const setLabel = createAction('setLabel', label => label);
     this.bundleAction(setLabel , (state, label) => ({...state,label: label}));
     let _self = this;
-
     return {
-        get label(){
-            return _self.map(function(state){
-                return state.label;
-            });
+        ...parent,
+        setLabel,
+        onClick: function () {
+            _self.onClick();
         },
-        set label(label){
-            setLabel(label);
+        get state() {
+            return _self.map(R.identity);
         }
     };
 }
@@ -101,25 +105,82 @@ Button.prototype.onClick = emptyFun;
 Button.prototype.type = "Button";
 
 
+class RButton extends React.Component {
+
+    onclick(e) {
+        this.props.onClick(e);
+    }
+
+    render() {
+        return (
+            <button onClick={this.onclick.bind(this) }>{this.props.label}</button>
+        );
+    }
+}
+
+
+function ReactClassFactory(){
+    var cache = {};
+    return function(){
+        this.register = function(type , react){
+            cache[type] = react;
+        };
+
+        this.get = function(type){
+            return cache[type];
+        };
+    };
+}
+
+var factory = ReactClassFactory();
+factory.register("Button" , RButton);
+
+
+
+
+function render(component, containerEle) {
+    let store = component.store;
+    let reactComponent = factory.get(component.type);
+    function connect(component) {
+        return function (WrappedComponent) {
+            return class WrapComponent extends React.Component {
+
+                getChildContext() {
+                    return { store: this.store };
+                }
+
+                constructor(props, context) {
+                    super(props, context);
+                    this.store = props.store || context.store;
+                }
+
+                handleChange() {
+                    this.setState({});
+                }
+
+                trySubscribe() {
+                    this.unsubscribe = this.store.subscribe(this.handleChange.bind(this));
+                    this.handleChange();
+                }
+
+                componentDidMount() {
+                    this.trySubscribe();
+                }
+
+                componentWillUnmount() {
+                    this.tryUnsubscribe();
+                }
+
+                render() {
+                    createElement(WrappedComponent,
+                        {store , ...component , ...component.state}
+                    );
+                }
+            };
+        };
+    }
+    let WrapComponent = connect(component)(reactComponent);
+    ReactDom.render(<WrapComponent></WrapComponent>, containerEle);
+}
+
 const store = configureStore({});
-const btn = new Button(store);
-btn.label = "Btn1";
-btn.onClick = function() {
-    btn1.label = ("onClick set Label");
-};
-
-console.log(btn.label);
-
-const btn1 = new Button(store);
-console.log(store.getState());
-const btn2 = new Button(store);
-const btn3 = new Button(store);
-btn.onClick();
-console.log(store.getState());
-btn.label = ("aaaa");
-
-console.log(store.getState());
-
-const btn4 = new Button(store , store.getState()['Button_2']);
-btn4.label = "AAAAAA";
-console.log(store.getState());
