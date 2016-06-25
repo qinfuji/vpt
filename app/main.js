@@ -5,6 +5,18 @@ import {createAction,createReducer,assignAll} from 'redux-act';
 import {connect, Provider} from 'react-redux';
 var R = require('ramda');
 
+Provider.childContextTypes = {
+   ...Provider.childContextTypes ,
+   onClick : React.PropTypes.func
+};
+
+Provider.prototype.getChildContext = function() {
+    return { 
+        store: this.store ,
+        onClick : function(){console.log("-----");}
+    };
+  };
+
 const handlers = {};
 let reduces = createReducer(handlers, {});
 const store = createStore(reduces , {}); 
@@ -50,6 +62,10 @@ function Component(id){
 
 const setLabel = createAction('setLabel',(id ,label)=>({id ,label}));
 bundle(setLabel , (state , payload) =>({...state , ...payload}));
+
+const onClick = createAction('onClick' , (id , fnName)=>({id , fnName}));
+bundle(onClick , (state , payload) =>({...state , ...payload}));
+
 function Button(){
     Component.apply(this, arguments);
 }
@@ -59,10 +75,55 @@ Button.prototype.onClick = emptyFun;
 Button.prototype.type = "Button";
 Button.prototype.setLabel = bindAction(setLabel);
 
+ const mapStateToProps = function(button){
+    return (state)=>({
+        label : state[button.id].label
+    });
+};
+
+const mapDispatchToProps = button => diapatch => {
+    return {
+        onClick : function(e , context){
+            //这里获取事件的配置
+            let eventName = "";
+            if(eventName){
+                content[eventName].apply(content , e);
+            }
+        }
+    };
+};
+
+
+
+class RButton extends React.Component {
+
+    clickHandle(e){
+        console.log(this.context);
+        this.props.onClick(e , this.context.onClick);
+    }
+
+    render() {
+        return (
+            <button onClick={this.clickHandle.bind(this) }>
+                {this.props.label}
+            </button>
+        );
+    }
+}
+
+RButton.contextTypes = {
+   onClick: React.PropTypes.func
+};
+
+
 let btn1 = new Button();
-btn1.setLabel("-----");
 
-let btn2 = new Button();
-btn2.setLabel("-----4");
+var ButtonWraped = connect(mapStateToProps(btn1),mapDispatchToProps(btn1))(RButton);
+ReactDom.render(<Provider store={store}><ButtonWraped></ButtonWraped></Provider>, 
+document.getElementById("root"));
 
-console.log(store.getState());
+// ReactDom.render(<Container><RButton></RButton></Container>, 
+//    document.getElementById("root"));
+
+
+btn1.setLabel("AAAA");
