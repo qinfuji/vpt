@@ -8,7 +8,7 @@ bundle(setId , function(state , payload){
     return {...state , ...payload};
 });
 
-export default function Component(store , id){
+export default function Component(id){
     this.id = id || this.type+"_"+genId();
     if(!id){
         setId(this.id , this.id);
