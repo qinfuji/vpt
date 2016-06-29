@@ -1,129 +1,54 @@
 import ReactDom from "react-dom";
 import React from 'react';
-import {createStore,combineReducers,compose} from 'redux';
-import {createAction,createReducer,assignAll} from 'redux-act';
+import Button from './components/Button';
+import RButton from './components/RButton';
 import {connect, Provider} from 'react-redux';
 var R = require('ramda');
+import {mapStateToProps,mapDispatchToProps} from './components/utils';
+import {store} from './store';
 
 Provider.childContextTypes = {
    ...Provider.childContextTypes ,
-   onClick : React.PropTypes.func
+   environment : React.PropTypes.object
 };
 
-Provider.prototype.getChildContext = function() {
+
+function Page(){
+  var _self = this;
+  Provider.prototype.getChildContext = function() {
     return { 
-        store: this.store ,
-        onClick : function(){console.log("-----");}
+        store: this.store,
+        environment : _self
     };
   };
+  let btn1 = new Button();
+  btn1.setLabel("AAAA");
+  btn1.onClick('btn_onClick');
+  
+  let btn2 = new Button();
+  btn2.setLabel("AAAA");
+  btn2.onClick('btn_onClick');
 
-const handlers = {};
-let reduces = createReducer(handlers, {});
-const store = createStore(reduces , {}); 
 
-function bundle(action , reduce){
-    handlers[action] = function(state , payload){
-        var id = payload.id;
-        var _state = state[id] || {};
-        var ret = reduce(_state , payload);
-        return {...state , [id]:ret};
-    };
-    action.assignTo(store);
+  this.btn_onClick = function(){
+      
+      console.log(btn1);
+      console.log('page in btn_Onckick');
+      btn1.setLabel('Onclkikc');
+      console.log(store.getState());
+  };
+
+  this.render = function(){
+      var ButtonWraped = connect(mapStateToProps.get(btn1.type)(btn1)
+       ,mapDispatchToProps.get(btn1.type)(btn1))(RButton);
+       var ButtonWraped2 = connect(mapStateToProps.get(btn2.type)(btn2)
+       ,mapDispatchToProps.get(btn2.type)(btn2))(RButton);
+      ReactDom.render(<Provider store={store}><div><ButtonWraped></ButtonWraped>
+                      <ButtonWraped2></ButtonWraped2></div></Provider>, 
+      document.getElementById("root"));
+  };
 }
 
-const genId = function() {
-    let id = 0;
-    return function() {
-        return ++id;
-    };
-}();
+let page = new Page();
 
-const emptyFun = function() {};
-
-function bindAction(action){
-    return function () {
-        let id = this.id;
-        var args = Array.prototype.slice.call(arguments, 0);
-        args.unshift(id);
-        action.apply(null, args);
-    };
-}
-
-const setId = createAction('setId',id=>({id}));
-bundle(setId , function(state , payload){
-    return {...state , ...payload};
-});
-function Component(id){
-    this.id = id || this.type+"_"+genId();
-    if(!id){
-        setId(this.id , this.id);
-    }
-}
-
-const setLabel = createAction('setLabel',(id ,label)=>({id ,label}));
-bundle(setLabel , (state , payload) =>({...state , ...payload}));
-
-const onClick = createAction('onClick' , (id , fnName)=>({id , fnName}));
-bundle(onClick , (state , payload) =>({...state , ...payload}));
-
-function Button(){
-    Component.apply(this, arguments);
-}
-Button.prototype.constructor = Button;
-Button.prototype = Object.create(Component.prototype);
-Button.prototype.onClick = emptyFun;
-Button.prototype.type = "Button";
-Button.prototype.setLabel = bindAction(setLabel);
-
- const mapStateToProps = function(button){
-    return (state)=>({
-        label : state[button.id].label
-    });
-};
-
-const mapDispatchToProps = button => diapatch => {
-    return {
-        onClick : function(e , context){
-            //这里获取事件的配置
-            let eventName = "";
-            if(eventName){
-                content[eventName].apply(content , e);
-            }
-        }
-    };
-};
-
-
-
-class RButton extends React.Component {
-
-    clickHandle(e){
-        console.log(this.context);
-        this.props.onClick(e , this.context.onClick);
-    }
-
-    render() {
-        return (
-            <button onClick={this.clickHandle.bind(this) }>
-                {this.props.label}
-            </button>
-        );
-    }
-}
-
-RButton.contextTypes = {
-   onClick: React.PropTypes.func
-};
-
-
-let btn1 = new Button();
-
-var ButtonWraped = connect(mapStateToProps(btn1),mapDispatchToProps(btn1))(RButton);
-ReactDom.render(<Provider store={store}><ButtonWraped></ButtonWraped></Provider>, 
-document.getElementById("root"));
-
-// ReactDom.render(<Container><RButton></RButton></Container>, 
-//    document.getElementById("root"));
-
-
-btn1.setLabel("AAAA");
+page.render();
