@@ -1,12 +1,13 @@
 
 import {createAction} from 'redux-act';
-import {bindAction , genId} from './utils';
-import {bundle} from '../store';
+import {bindAction , genId , defaultReduce} from './utils';
+import {bundle , selectState} from '../store';
 
 const setId = createAction('setId',id=>({id}));
-bundle(setId , function(state , payload){
-    return {...state , ...payload};
-});
+bundle(setId , defaultReduce);
+
+const setParentId = createAction('setParent' , (id,parentId)=>({id , parentId}));
+bundle(setParentId , defaultReduce);
 
 export default function Component(id){
     this.id = id || this.type+"_"+genId();
@@ -14,3 +15,13 @@ export default function Component(id){
         setId(this.id , this.id);
     }
 }
+
+Component.prototype.setParentId = bindAction(setParentId);
+
+export const propSelector = (state)=>(id)=>(propertyName)=>state[id][propertyName];
+
+export const bindProp = function(propertyName){
+    return function(){
+        return selectState(propSelector)(this.id)(propertyName);
+    };
+};

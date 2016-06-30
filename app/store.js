@@ -3,7 +3,7 @@ import {createStore} from 'redux';
 import {createReducer} from 'redux-act';
 
 const handlers = {};
-let reduces = createReducer(handlers, {});
+const reduces = createReducer(handlers, {});
 export const store = createStore(reduces , {}); 
 
 export function bundle(action , reduce){

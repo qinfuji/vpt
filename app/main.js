@@ -35,7 +35,12 @@ function Page(){
       console.log(btn1);
       console.log('page in btn_Onckick');
       btn1.setLabel('Onclkikc');
+      btn1.setParentId(1);
       console.log(store.getState());
+      console.log(btn1.getLabel());
+      console.log(btn2.getLabel());
+
+      console.log(btn2.label);
   };
 
   this.render = function(){

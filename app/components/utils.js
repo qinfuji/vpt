@@ -41,3 +41,7 @@ export  const genId = function() {
 }();
 
 export function emptyFun() {};
+
+export const defaultReduce = function(state , payload){
+    return {...state , ...payload};
+};
