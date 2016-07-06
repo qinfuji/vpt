@@ -7,20 +7,20 @@ var R = require('ramda');
 import {mapStateToProps,mapDispatchToProps} from './components/utils';
 import {store} from './store';
 
-Provider.childContextTypes = {
-   ...Provider.childContextTypes ,
-   environment : React.PropTypes.object
-};
+// Provider.childContextTypes = {
+//    ...Provider.childContextTypes ,
+//    environment : React.PropTypes.object
+// };
 
 
 function Page(){
-  var _self = this;
-  Provider.prototype.getChildContext = function() {
-    return { 
-        store: this.store,
-        environment : _self
-    };
-  };
+//  var _self = this;
+//   Provider.prototype.getChildContext = function() {
+//     return { 
+//         store: this.store,
+//         environment : _self
+//     };
+//   };
   let btn1 = new Button();
   btn1.setLabel("AAAA");
   btn1.onClick('btn_onClick');
@@ -32,22 +32,22 @@ function Page(){
 
   this.btn_onClick = function(){
       
-      console.log(btn1);
-      console.log('page in btn_Onckick');
+      //console.log(btn1);
+      //console.log('page in btn_Onckick');
       btn1.setLabel('Onclkikc');
       btn1.setParentId(1);
-      console.log(store.getState());
-      console.log(btn1.getLabel());
-      console.log(btn2.getLabel());
+      //console.log(store.getState());
+      //console.log(btn1.getLabel());
+      //console.log(btn2.getLabel());
 
       console.log(btn2.label);
   };
 
   this.render = function(){
-      var ButtonWraped = connect(mapStateToProps.get(btn1.type)(btn1)
-       ,mapDispatchToProps.get(btn1.type)(btn1))(RButton);
-       var ButtonWraped2 = connect(mapStateToProps.get(btn2.type)(btn2)
-       ,mapDispatchToProps.get(btn2.type)(btn2))(RButton);
+      var ButtonWraped = connect(mapStateToProps.get(btn1)
+       ,mapDispatchToProps.get(btn1 , this , store))(RButton);
+       var ButtonWraped2 = connect(mapStateToProps.get(btn2)
+       ,mapDispatchToProps.get(btn2 , this ,store))(RButton);
       ReactDom.render(<Provider store={store}><div><ButtonWraped></ButtonWraped>
                       <ButtonWraped2></ButtonWraped2></div></Provider>, 
       document.getElementById("root"));

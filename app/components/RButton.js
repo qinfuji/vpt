@@ -3,10 +3,11 @@ import React from 'react';
 export default class RButton extends React.Component {
 
     clickHandle(e){
-        this.props.onClick(e , this.context.environment);
+        this.props.onClick(e);
     }
 
     render() {
+        console.log(this.props);
         return (
             <button onClick={this.clickHandle.bind(this) }>
                 {this.props.label}
@@ -14,8 +15,3 @@ export default class RButton extends React.Component {
         );
     }
 }
-
-
-RButton.contextTypes = {
-   environment:React.PropTypes.object
-};

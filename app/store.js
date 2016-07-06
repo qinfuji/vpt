@@ -6,6 +6,15 @@ const handlers = {};
 const reduces = createReducer(handlers, {});
 export const store = createStore(reduces , {}); 
 
+export function bindAction(action){
+    return function () {
+        let id = this.id;
+        var args = Array.prototype.slice.call(arguments, 0);
+        args.unshift(id);
+        action.apply(null, args);
+    };
+}
+
 export function bundle(action , reduce){
     handlers[action] = function(state , payload){
         var id = payload.id;

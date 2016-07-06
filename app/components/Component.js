@@ -1,7 +1,7 @@
 
 import {createAction} from 'redux-act';
-import {bindAction , genId , defaultReduce} from './utils';
-import {bundle , selectState} from '../store';
+import {genId , defaultReduce} from './utils';
+import {bindAction , bundle , selectState} from '../store';
 
 const setId = createAction('setId',id=>({id}));
 bundle(setId , defaultReduce);

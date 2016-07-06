@@ -1,7 +1,7 @@
 import {createAction} from 'redux-act';
-import {bindAction , mapStateToProps,mapDispatchToProps , defaultReduce} from './utils';
-import {bundle , selectState} from '../store';
-import Component , {propSelector , bindProp}  from './Component';
+import {mapStateToProps,mapDispatchToProps , defaultReduce} from './utils';
+import {bindAction ,bundle , selectState} from '../store';
+import Component , {bindProp}  from './Component';
 import {emptyFun} from '../utils';
 
 const setLabel = createAction('setLabel',(id ,label)=>({id ,label}));
@@ -21,23 +21,24 @@ Button.prototype.setLabel = bindAction(setLabel);
 Button.prototype.getLabel = bindProp('label');
 
 
-const _mapStateToProps = function(button){
-    return (state)=>({
-        label : propSelector(state)(button.id)('label')
+const _mapStateToProps = (state)=>({
+        label : state['label']
     });
-};
+
+
 mapStateToProps.register(Button.prototype.type , _mapStateToProps);
 
 
-const _mapDispatchToProps = button => diapatch => {
+const _mapDispatchToProps = context => state => {
     return {
-        onClick : function(e , context){
-            //这里获取事件的配置
-            let eventName = selectState(propSelector)(button.id)('onClick');
+        onClick : function(e){
+            console.log(state);
+            let eventName = state['onClick'];
             if(eventName){
                 context[eventName].apply(context , e);
             }
         }
     };
 };
+
 mapDispatchToProps.register(Button.prototype.type , _mapDispatchToProps);
