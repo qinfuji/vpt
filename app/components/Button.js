@@ -32,7 +32,6 @@ mapStateToProps.register(Button.prototype.type , _mapStateToProps);
 const _mapDispatchToProps = context => state => {
     return {
         onClick : function(e){
-            console.log(state);
             let eventName = state['onClick'];
             if(eventName){
                 context[eventName].apply(context , e);
