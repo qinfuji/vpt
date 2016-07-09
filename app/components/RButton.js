@@ -1,5 +1,5 @@
 import React from 'react';
-import buttonStyle from '../styles/button.less';
+import styles from '../styles/button.less';
 export default class RButton extends React.Component {
 
     clickHandle(e){
@@ -9,7 +9,7 @@ export default class RButton extends React.Component {
     render() {
         console.log(this.props);
         return (
-            <button onClick={this.clickHandle.bind(this) }>
+            <button className={styles.button} onClick={this.clickHandle.bind(this) }>
                 {this.props.label}
             </button>
         );

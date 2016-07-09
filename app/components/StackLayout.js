@@ -1,6 +1,6 @@
 import {createAction} from 'redux-act';
 import Component , {bindProp}  from './Component';
-import {bindAction ,bundle , selectState} from '../store';
+import {bindAction ,bundle} from '../store';
 import {mapStateToProps,mapDispatchToProps ,reactClassFactory, defaultReduce,componentFactory} from './utils';
 import R from 'ramda';
 import RStackLayout from './RStackLayout';
