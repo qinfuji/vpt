@@ -51,8 +51,8 @@ module.exports = {
                 test: /\.json?$/,
                 loader: 'json'
             }, {
-                test: /\.scss$/,
-                loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss-loader'
+                test: /\.(scss|css|less)$/,
+                loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss-loader!less-loader'
             }]
     },
     postcss: function plugins(bundler) {

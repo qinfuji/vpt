@@ -1,5 +1,5 @@
 import React from 'react';
-
+import buttonStyle from '../styles/button.less';
 export default class RButton extends React.Component {
 
     clickHandle(e){
@@ -15,3 +15,4 @@ export default class RButton extends React.Component {
         );
     }
 }
+

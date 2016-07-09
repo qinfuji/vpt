@@ -3,18 +3,22 @@ import {createAction} from 'redux-act';
 import {genId , defaultReduce} from './utils';
 import {bindAction , bundle , selectState} from '../store';
 
-const setId = createAction('setId',id=>({id}));
-bundle(setId , defaultReduce);
+
+const initDataAction = createAction('initData' , (id , initData)=>({id , initData}));
+bundle(initDataAction ,  function(state , payload){
+     return {...payload.initData};
+});
 
 const setParentId = createAction('setParent' , (id,parentId)=>({id , parentId}));
 bundle(setParentId , defaultReduce);
 
-export default function Component(id){
-    this.id = id || this.type+"_"+genId();
-    if(!id){
-        setId(this.id , this.id);
-    }
+export default function Component(initData = {}){
+    this.id = initData.id || this.type+"_"+genId();
+    initData.id = this.id;
+    initData.type = this.type;
+    initDataAction(this.id , initData);
 }
+
 
 Component.prototype.setParentId = bindAction(setParentId);
 
