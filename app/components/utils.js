@@ -83,3 +83,10 @@ export const $view = function(id , context){
     return connect(mapStateToProps.get(component)
         ,mapDispatchToProps.get(component , context , store))(ReactClass);
 };
+
+export const $register = function (component, rcomponent, _mapStateToProps, _mapDispatchToProps) {
+    mapStateToProps.register(component.prototype.type , _mapStateToProps);
+    mapDispatchToProps.register(component.prototype.type , _mapDispatchToProps);
+    reactClassFactory.register(component.prototype.type , rcomponent);
+    componentFactory.register(component.prototype.type , component);
+};

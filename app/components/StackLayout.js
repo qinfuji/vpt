@@ -1,7 +1,7 @@
 import {createAction} from 'redux-act';
 import Component , {bindProp}  from './Component';
 import {bindAction ,bundle} from '../store';
-import {mapStateToProps,mapDispatchToProps ,reactClassFactory, defaultReduce,componentFactory} from './utils';
+import {defaultReduce,$register} from './utils';
 import R from 'ramda';
 import RStackLayout from './RStackLayout';
 
@@ -49,13 +49,10 @@ const _mapStateToProps = (state)=>({
     });
 
 
-mapStateToProps.register(StackLayout.prototype.type , _mapStateToProps);
-
 
 const _mapDispatchToProps = context => state => {
     return {};
 };
 
-mapDispatchToProps.register(StackLayout.prototype.type , _mapDispatchToProps);
-reactClassFactory.register(StackLayout.prototype.type , RStackLayout);
-componentFactory.register(StackLayout.prototype.type , StackLayout);
+
+$register(StackLayout,RStackLayout,_mapStateToProps,_mapDispatchToProps);

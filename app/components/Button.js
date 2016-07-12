@@ -1,7 +1,5 @@
 import {createAction} from 'redux-act';
-import {mapStateToProps,mapDispatchToProps 
-        , defaultReduce , reactClassFactory
-        , componentFactory} from './utils';
+import {defaultReduce , $register} from './utils';
 
 import {bindAction ,bundle , selectState} from '../store';
 import Component , {bindProp}  from './Component';
@@ -37,9 +35,6 @@ const _mapStateToProps = (state)=>({
         active : state['active']
     });
 
-
-mapStateToProps.register(Button.prototype.type , _mapStateToProps);
-
 const _mapDispatchToProps = context => state => {
     return {
         onClick : function(e){
@@ -51,6 +46,4 @@ const _mapDispatchToProps = context => state => {
     };
 };
 
-mapDispatchToProps.register(Button.prototype.type , _mapDispatchToProps);
-reactClassFactory.register(Button.prototype.type , RButton);
-componentFactory.register(Button.prototype.type , Button);
+$register(Button , RButton, _mapStateToProps ,_mapDispatchToProps);
