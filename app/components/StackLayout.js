@@ -50,7 +50,7 @@ const _mapStateToProps = (state)=>({
 
 
 
-const _mapDispatchToProps = context => state => {
+const _mapDispatchToProps = (stackLayout , context , state) => {
     return {};
 };
 

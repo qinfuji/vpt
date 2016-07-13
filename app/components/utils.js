@@ -35,7 +35,7 @@ export const mapDispatchToProps =  function mapDispatchToProps(){
         get:function(component , context , store){
             return function(dispatch){
                 var state = store.getState();
-                return cache[component.type](context)(state[component.id]);
+                return cache[component.type](component , context ,state[component.id]);
             };
         }
     };

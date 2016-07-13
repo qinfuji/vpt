@@ -35,7 +35,7 @@ const _mapStateToProps = (state)=>({
         active : state['active']
     });
 
-const _mapDispatchToProps = context => state => {
+const _mapDispatchToProps = (button , context , state) => {
     return {
         onClick : function(e){
             let eventName = state['onClick'];

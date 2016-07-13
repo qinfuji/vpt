@@ -9,7 +9,8 @@ const _initData = {
     title:"Dialog",
     width:400,
     height:400,
-    dragable:true
+    dragable:true,
+    opacity:0
 };
 
 const close = createAction("close" , (id)=>({id , 'show':false}));
@@ -37,7 +38,7 @@ const _mapStateToProps = (state)=>({
         title : state['title']
     });
 
-const _mapDispatchToProps = context => state => {
+const _mapDispatchToProps = (dialog , context , state) => {
     return {};
 };
 
