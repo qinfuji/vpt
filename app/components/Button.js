@@ -20,7 +20,7 @@ const _initData = {
 };
 
 export default function Button(initData = {..._initData}){
-    Component.apply(this, [initData]);
+    Component.apply(this, [{..._initData , ...initData}]);
 }
 Button.prototype.constructor = Button;
 Button.prototype = Object.create(Component.prototype);

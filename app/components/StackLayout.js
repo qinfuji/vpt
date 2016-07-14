@@ -16,7 +16,7 @@ const _initData = {
 };
 
 export default function StackLayout(initData = {..._initData}){
-    Component.apply(this, [initData]);
+    Component.apply(this, [{..._initData , ...initData}]);
 }
 
 

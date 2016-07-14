@@ -4,6 +4,10 @@ import Button from './components/Button';
 import RButton from './components/RButton';
 import StackLayout from './components/StackLayout';
 import RStackLayout from './components/RStackLayout';
+
+import Dialog from './components/Dialog';
+import RDialog from './components/RDialog';
+
 import {connect, Provider} from 'react-redux';
 var R = require('ramda');
 import {mapStateToProps,mapDispatchToProps, $view} from './components/utils';
@@ -23,20 +27,21 @@ function Page(){
         environment : _self
     };
   };
-
-  let btn1 = new Button();
-  btn1.onClick('btn_onClick');
   
-  let btn2 = new Button();
+  let btn1 = new Button({label:"弹出对话框"});
+  btn1.onClick('btn_onClick');
+
+  let btn2 = new Button({label:"弹出对话框"});
   btn2.onClick('btn_onClick');
-
-
+  
+  let dialog = new Dialog();
   let stackLayout = new StackLayout();
   stackLayout.append(btn1);
   stackLayout.append(btn2);
 
   this.btn_onClick = function(){
-      btn1.setLabel("My onClick");
+      dialog.open(btn1.id , {title:"测试对话框"});
+      //dialog.open(btn2.id , {title:"测试对话框"});
   };
 
 
@@ -46,6 +51,15 @@ function Page(){
                        <StackLayoutWraped/>
                       </Provider>,  document.getElementById("root"));
   };
+  
+
+  // let dialog = new Dialog();
+  // this.render = function(){
+  //    let DialogWraped = $view(dialog.id , this);
+  //    ReactDom.render(<Provider store={store}>
+  //                      <DialogWraped/>
+  //                     </Provider>,  document.getElementById("root"));
+  // };
 }
 
 let page = new Page();
