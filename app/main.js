@@ -40,7 +40,8 @@ function Page(){
   stackLayout.append(btn2);
 
   this.btn_onClick = function(){
-      dialog.open(btn1.id , {title:"测试对话框"});
+      let _btn = new Button();
+      dialog.open(_btn.id , {title:"测试对话框"});
       //dialog.open(btn2.id , {title:"测试对话框"});
   };
 

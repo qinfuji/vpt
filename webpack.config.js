@@ -52,7 +52,7 @@ module.exports = {
                 loader: 'json'
             }, {
                 test: /\.(scss|css|less)$/,
-                loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss-loader!less-loader'
+                loader: 'style!css!postcss-loader!less-loader'
             }]
     },
     postcss: function plugins(bundler) {

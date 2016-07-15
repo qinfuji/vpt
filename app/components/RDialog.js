@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from '../styles/dialog.less';
 import {Motion, spring} from 'react-motion';
+import classnames from 'classnames';
+
+const ZINDEX = 1100;
 
 export default class RDialog extends React.Component {
 
@@ -17,25 +20,37 @@ export default class RDialog extends React.Component {
     //     };
     }
 
-    render() {
-        console.log("Dialog render" , this.props);
+    renderDialog(){
         let {dialogs} = this.props;
-        console.log(dialogs);
-        return <div></div>;
-        // let defaultStyle = {height:0,width:0,opacity:0};
-        // let style = {height:spring(height),width:spring(width),opacity:spring(1)};
-        // return (
-        //     <Motion defaultStyle={defaultStyle} style={style}>
-        //        {value=>(
-        //         <div style={this.genStyle(value)} className={styles.dialog}>
-        //             <div className="modal-header">{title}
-        //                 <span onClick={this.close.bind(this)}>X</span>
-        //             </div>
-        //             <div className="">Content</div>
-        //         </div>
-        //         )}
-        //     </Motion>
-        // );
+        let keys = Object.keys(dialogs);
+        return keys.map(function(id , index){
+            let dialogOpts = dialogs[id];
+            let defaultStyle = {height:0,width:0,opacity:0};
+            let style = {height:spring(300),width:spring(796),opacity:spring(1)};
+            return (
+                <Motion defaultStyle={defaultStyle} style={style}>
+                  {(value)=>
+                      <div key={id} className={classnames("dialog-inner")} style={{zIndex: ZINDEX + index}}>
+                        <div className={classnames("dialog")} style={value}>sssss</div>
+                      </div>
+                  }
+                </Motion>
+            );
+        });
+    }
+
+    render() {
+        let {dialogs} = this.props;
+        let dlen = Object.keys(dialogs).length;
+        let className = classnames(
+            'dialog-container' ,  { active: dlen > 0 }
+        );
+        return (
+            <div className={className}>
+              <div className={classnames("dialog-overlay")} style={{zIndex:ZINDEX + dlen - 1}}></div>
+                {this.renderDialog()}
+            </div>
+        );
     }
 }
 
