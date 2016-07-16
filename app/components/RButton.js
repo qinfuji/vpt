@@ -18,3 +18,6 @@ export default class RButton extends React.Component {
     }
 }
 
+RButton.contextTypes = {
+    environment:React.PropTypes.object
+ }; 

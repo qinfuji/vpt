@@ -5,22 +5,31 @@ import {defaultReduce , $register, $view} from './utils';
 import RDialog from './RDialog';
 import ReactDom from "react-dom";
 import React from 'react';
+import R from 'ramda';
+import {connect, Provider} from 'react-redux';
 
 let modalContainer = null;
 
 const _initData = {
-    dialogs:{}
+    dialogs:[],
+    increase:false
 };
 
-const close = createAction("close" , (id)=>({id , 'show':false}));
-bundle(close , defaultReduce);
+const close = createAction("close" , (id , childId)=>({id ,  childId}));
+bundle(close , function(state , payload){
+    var childId = payload.childId;
+    var dialogs = state['dialogs'];
+    dialogs = R.filter((dialog)=>dialog.id!=childId , dialogs);
+    let ret = {...state , dialogs:dialogs , increase:false};
+    return ret;
+});
 
 const open  = createAction("open" , (id , childId , options)=>({id , childId, options}));
 bundle(open , function(state , payload){
-    var childId = payload.childId;
-    var dialogOpts = payload.options;
+
     var dialogs = state['dialogs'];
-    let ret = {...state , dialogs:{...dialogs , [childId]:dialogOpts}};
+    dialogs = R.append({id:payload.childId,options:payload.options})(dialogs);
+    let ret = {...state , dialogs:dialogs , increase:true};
     return ret;
 });
 
@@ -39,22 +48,31 @@ Dialog.prototype.open = function(childId , options){
 };
 Dialog.prototype.type = "Dialog";
 
-const _mapStateToProps = (state)=>({
-        id:state['id'],
-        dialogs:state['dialogs']
-});
-
-const _mapDispatchToProps = (dialog , context , state) => {
-    return {};
+const _mapStateToProps = function (state, dialog, context) {
+    return {
+        id: state['id'],
+        dialogs: state['dialogs'],
+        increase: state['increase'],
+        close: function () {
+            let dialogs = state['dialogs'];
+            if (!dialogs.length) {
+                return;
+            }
+            dialog.close(dialogs[dialogs.length - 1].id);
+        },
+        open: function () {
+            dialog.open(++count, { title: "打开测试" + count, width: 500, height: 200 });
+        }
+    };
 };
-
-$register(Dialog,RDialog,_mapStateToProps,_mapDispatchToProps);
-
+let count = 0;
 
 
-function createContainer (dialog) {
-  modalContainer = document.createElement('div');
-  document.body.appendChild(modalContainer);
-  let DialogWraped = $view(dialog.id , null);
-  ReactDom.render(<DialogWraped store={store}/>, modalContainer);
+$register(Dialog,RDialog,_mapStateToProps);
+
+function createContainer(dialog) {
+    modalContainer = document.createElement('div');
+    document.body.appendChild(modalContainer);
+    let DialogWraped = $view(dialog.id, null);
+    ReactDom.render(<Provider store={store}><DialogWraped/></Provider>, modalContainer);
 }

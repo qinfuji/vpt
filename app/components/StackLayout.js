@@ -50,9 +50,4 @@ const _mapStateToProps = (state)=>({
 
 
 
-const _mapDispatchToProps = (stackLayout , context , state) => {
-    return {};
-};
-
-
-$register(StackLayout,RStackLayout,_mapStateToProps,_mapDispatchToProps);
+$register(StackLayout,RStackLayout,_mapStateToProps);

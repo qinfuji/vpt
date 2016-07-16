@@ -2,36 +2,45 @@ import React from 'react';
 import styles from '../styles/dialog.less';
 import {Motion, spring} from 'react-motion';
 import classnames from 'classnames';
+import {$view} from './utils';
 
 const ZINDEX = 1100;
 
 export default class RDialog extends React.Component {
 
     close(){
-        
+        let {close} = this.props;
+        close();
     }
 
-    genStyle(motionValue){
-    //    return {
-    //         height:motionValue.height,
-    //         width:motionValue.width,
-    //         "backgroundColor":"#eeeeee",
-    //         opacity:motionValue.opacity
-    //     };
+    open(){
+        let {open} = this.props;
+        open();
+    }
+
+    renderContent(id){
+        let {environment} = this.context;
+        console.log(id , environment);
+        return $view(id , environment);
     }
 
     renderDialog(){
-        let {dialogs} = this.props;
-        let keys = Object.keys(dialogs);
-        return keys.map(function(id , index){
-            let dialogOpts = dialogs[id];
+        let {dialogs,increase} = this.props;
+        let _self = this;
+        return dialogs.map(function(dialog , index){
+            let {title , height=300 , width=696 , opacity=1} = dialog['options'];
             let defaultStyle = {height:0,width:0,opacity:0};
-            let style = {height:spring(300),width:spring(796),opacity:spring(1)};
+            let style = {height:spring(height),width:spring(width),opacity:spring(opacity)};
+            let WrapedContent = _self.renderContent(dialog.id);
             return (
-                <Motion defaultStyle={defaultStyle} style={style}>
+                <Motion defaultStyle={defaultStyle} style={style} key={index}>
                   {(value)=>
-                      <div key={id} className={classnames("dialog-inner")} style={{zIndex: ZINDEX + index}}>
-                        <div className={classnames("dialog")} style={value}>sssss</div>
+                      <div  className={classnames("dialog-inner")} style={{zIndex: ZINDEX + index}}>
+                        <div className={classnames("dialog")} style={value}>{title}
+                            <button onClick={_self.open.bind(_self)}>打开</button>
+                            <button onClick={_self.close.bind(_self)}>关闭</button>
+                            <WrapedContent/>
+                        </div>
                       </div>
                   }
                 </Motion>
@@ -41,7 +50,7 @@ export default class RDialog extends React.Component {
 
     render() {
         let {dialogs} = this.props;
-        let dlen = Object.keys(dialogs).length;
+        let dlen = dialogs.length;
         let className = classnames(
             'dialog-container' ,  { active: dlen > 0 }
         );
@@ -53,4 +62,8 @@ export default class RDialog extends React.Component {
         );
     }
 }
+
+RDialog.contextTypes = {
+    environment:React.PropTypes.object
+ }; 
 

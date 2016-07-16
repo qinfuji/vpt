@@ -13,10 +13,13 @@ const setParentId = createAction('setParent' , (id,parentId)=>({id , parentId}))
 bundle(setParentId , defaultReduce);
 
 export default function Component(initData = {}){
+    let id = initData.id;
     this.id = initData.id || this.type+"_"+genId();
     initData.id = this.id;
     initData.type = this.type;
-    initDataAction(this.id , initData);
+    if(!id){
+         initDataAction(this.id , initData);
+    }
 }
 
 

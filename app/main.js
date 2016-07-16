@@ -41,8 +41,8 @@ function Page(){
 
   this.btn_onClick = function(){
       let _btn = new Button();
-      dialog.open(_btn.id , {title:"测试对话框"});
-      //dialog.open(btn2.id , {title:"测试对话框"});
+      dialog.open(_btn.id , {title:"测试对话框1111",width:500,height:500});
+      _btn.setLabel("改变Label");
   };
 
 

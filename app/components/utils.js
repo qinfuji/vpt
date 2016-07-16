@@ -20,27 +20,11 @@ export const mapStateToProps =  function mapStateToProps(){
         register:function(type , factory){
             cache[type] = factory;
         },
-        get:function(component){
-            return (state) => cache[component.type](state[component.id]);
+        get:function(component , context){
+            return (state) => cache[component.type](state[component.id] , component , context);
         }
     };
 }();
-
-export const mapDispatchToProps =  function mapDispatchToProps(){
-    let cache = {};
-    return {
-        register:function(type , factory){
-            cache[type] = factory;
-        },
-        get:function(component , context , store){
-            return function(dispatch){
-                var state = store.getState();
-                return cache[component.type](component , context ,state[component.id]);
-            };
-        }
-    };
-}();
-
 
 
 function factory(){
@@ -80,13 +64,11 @@ export const $component = function(id){
 export const $view = function(id , context){
     let component = $component(id);
     let ReactClass = reactClassFactory.get(component.type);
-    return connect(mapStateToProps.get(component)
-        ,mapDispatchToProps.get(component , context , store))(ReactClass);
+    return connect(mapStateToProps.get(component , context))(ReactClass);
 };
 
-export const $register = function (component, rcomponent, _mapStateToProps, _mapDispatchToProps) {
+export const $register = function (component, rcomponent, _mapStateToProps) {
     mapStateToProps.register(component.prototype.type , _mapStateToProps);
-    mapDispatchToProps.register(component.prototype.type , _mapDispatchToProps);
     reactClassFactory.register(component.prototype.type , rcomponent);
     componentFactory.register(component.prototype.type , component);
 };

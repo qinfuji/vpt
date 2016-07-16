@@ -29,21 +29,18 @@ Button.prototype.type = "Button";
 Button.prototype.setLabel = bindAction(setLabel);
 Button.prototype.getLabel = bindProp('label');
 
-const _mapStateToProps = (state)=>({
+const _mapStateToProps = (state , button , context)=>({
         label : state['label'],
         disable : state['disable'],
-        active : state['active']
-    });
-
-const _mapDispatchToProps = (button , context , state) => {
-    return {
+        active : state['active'],
         onClick : function(e){
             let eventName = state['onClick'];
             if(eventName){
                 context[eventName].apply(context , e);
             }
         }
-    };
-};
+    });
 
-$register(Button , RButton, _mapStateToProps ,_mapDispatchToProps);
+
+
+$register(Button , RButton, _mapStateToProps);
