@@ -18,20 +18,18 @@ export default class RDialog extends React.Component {
         open();
     }
 
-    renderContent(id){
-        let {environment} = this.context;
-        console.log(id , environment);
-        return $view(id , environment);
+    renderContent(id ,  context){
+        return $view(id , context);
     }
 
     renderDialog(){
         let {dialogs,increase} = this.props;
         let _self = this;
         return dialogs.map(function(dialog , index){
-            let {title , height=300 , width=696 , opacity=1} = dialog['options'];
+            let {title , height=300 , width=696 , opacity=1 , context} = dialog['options'];
             let defaultStyle = {height:0,width:0,opacity:0};
             let style = {height:spring(height),width:spring(width),opacity:spring(opacity)};
-            let WrapedContent = _self.renderContent(dialog.id);
+            let WrapedContent = _self.renderContent(dialog.id , context);
             return (
                 <Motion defaultStyle={defaultStyle} style={style} key={index}>
                   {(value)=>
@@ -62,8 +60,4 @@ export default class RDialog extends React.Component {
         );
     }
 }
-
-RDialog.contextTypes = {
-    environment:React.PropTypes.object
- }; 
 

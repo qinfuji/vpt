@@ -43,9 +43,10 @@ StackLayout.prototype.append = bindAction(appendAction);
 StackLayout.prototype.type = "StackLayout";
 
 
-const _mapStateToProps = (state)=>({
+const _mapStateToProps = (state , stackLayout , context)=>({
         orientation : state['orientation'],
-        children: state['children']
+        children: state['children'],
+        context:context
     });
 
 

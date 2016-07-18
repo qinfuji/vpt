@@ -53,6 +53,7 @@ const _mapStateToProps = function (state, dialog, context) {
         id: state['id'],
         dialogs: state['dialogs'],
         increase: state['increase'],
+        context:context,
         close: function () {
             let dialogs = state['dialogs'];
             if (!dialogs.length) {

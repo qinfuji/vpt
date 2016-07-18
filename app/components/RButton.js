@@ -4,6 +4,11 @@ import classnames from 'classnames';
 
 export default class RButton extends React.Component {
 
+    componentWillUnmount(){
+        let {remove , id} = this.props;
+        remove(id);
+    }
+
     clickHandle(e){
         this.props.onClick(e);
     }
@@ -17,7 +22,3 @@ export default class RButton extends React.Component {
         );
     }
 }
-
-RButton.contextTypes = {
-    environment:React.PropTypes.object
- }; 

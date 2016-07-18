@@ -72,3 +72,4 @@ export const $register = function (component, rcomponent, _mapStateToProps) {
     reactClassFactory.register(component.prototype.type , rcomponent);
     componentFactory.register(component.prototype.type , component);
 };
+

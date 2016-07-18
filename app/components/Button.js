@@ -1,7 +1,7 @@
 import {createAction} from 'redux-act';
 import {defaultReduce , $register} from './utils';
 
-import {bindAction ,bundle , selectState} from '../store';
+import {bindAction ,bundle , selectState ,$remove} from '../store';
 import Component , {bindProp}  from './Component';
 import {emptyFun} from '../utils';
 import RButton from './RButton';
@@ -33,12 +33,14 @@ const _mapStateToProps = (state , button , context)=>({
         label : state['label'],
         disable : state['disable'],
         active : state['active'],
+        id:state['id'],
         onClick : function(e){
             let eventName = state['onClick'];
             if(eventName){
                 context[eventName].apply(context , e);
             }
-        }
+        },
+        remove : $remove
     });
 
 

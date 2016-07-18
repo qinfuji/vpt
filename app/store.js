@@ -1,10 +1,20 @@
 
 import {createStore} from 'redux';
-import {createReducer} from 'redux-act';
+import {createAction , createReducer} from 'redux-act';
+import R from 'ramda';
 
 const handlers = {};
 const reduces = createReducer(handlers, {});
 export const store = createStore(reduces , {}); 
+
+
+const removeAction = createAction((id)=>id);
+handlers[removeAction] = function(state , id){
+    let ret = R.pickBy((val,key)=>key!=id , state);
+    return ret;
+};
+removeAction.assignTo(store);
+
 
 export function bindAction(action){
     return function () {
@@ -28,3 +38,9 @@ export function bundle(action , reduce){
 export function selectState(selector){
    return selector(store.getState());
 } 
+
+export const $remove =  removeAction;
+
+store.subscribe(function(){
+    console.log(store.getState());
+});

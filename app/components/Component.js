@@ -12,7 +12,7 @@ bundle(initDataAction ,  function(state , payload){
 const setParentId = createAction('setParent' , (id,parentId)=>({id , parentId}));
 bundle(setParentId , defaultReduce);
 
-export default function Component(initData = {}){
+export default function Component(initData = {} , context){
     let id = initData.id;
     this.id = initData.id || this.type+"_"+genId();
     initData.id = this.id;
@@ -24,6 +24,7 @@ export default function Component(initData = {}){
 
 
 Component.prototype.setParentId = bindAction(setParentId);
+
 
 export const propSelector = (state)=>(id)=>(propertyName)=>state[id][propertyName];
 
