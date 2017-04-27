@@ -1,0 +1,27 @@
+.horizontal {
+    position: relative;
+}
+
+.horizontal div {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.horizontal .dragblock {
+    height: 5px;
+}
+
+.vertical {
+    position: relative;
+}
+
+.vertical div {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.vertical .dragblock {
+    width: 5px;
+}

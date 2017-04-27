@@ -1,0 +1,41 @@
+.borderlauout {
+    position: relative;
+}
+
+.east {
+    width: 20%;
+    position: absolute;
+    right: 0;
+    top: 71px;
+    bottom: 70px;
+    border: 1px solid red;
+}
+
+.center {}
+
+.west {
+    width: 20%;
+    bottom: 70px;
+    position: absolute;
+    left: 0;
+    top: 71px;
+    border: 1px solid red;
+}
+
+.north {
+    top: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 70px;
+    border: 1px solid red;
+}
+
+.south {
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    left: 0;
+    height: 68px;
+    border: 1px solid red;
+}
