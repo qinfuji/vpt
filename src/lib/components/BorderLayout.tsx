@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { BorderLayout as BorderLayoutModel } from '../models/BorderLayout';
-import * as styles from './styles/borderLayout.css';
-let s = styles;
+import  './styles/borderLayout.css';
+
 @observer
 export class BorderLayout extends React.Component<{ model: BorderLayoutModel }, {}>{
 

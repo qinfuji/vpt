@@ -23,13 +23,21 @@ export class SplitPanel extends Component {
     readonly first: Container = new Container();
     readonly second: Container = new Container();
 
-    @observable firstSzie: number | string;
-    @observable secondSize: number | string;
+    /**
+     * panel的比例关系，
+     */
+    @observable dividerLoaction: number = .5;
 
     /**
      * 是否可以滑动
      */
     @observable dragable: boolean = true;
+
+    /**
+     * 分割条宽度/高度
+     */
+    @observable dividerSize : number = 2;
+
     /**
      * split方向
      */
@@ -49,7 +57,4 @@ export class SplitPanel extends Component {
         }
     };
 
-    setDragSize(x:number|string , y:number|string){
-        this.parent.width;
-    }
 }
