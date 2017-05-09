@@ -18,14 +18,14 @@ export class BorderLayout {
     readonly center: Container = new Container();
 
     constructor() {
-        this.north.width = '100%';
-        this.north.height = 70;
-        this.south.width = '100%';
-        this.south.height = 70;
-        this.west.width = '20%';
-        this.west.height = '100%';
-        this.east.width = '20%';
-        this.east.height = '100%';
+        // this.north.width = '100%';
+        // this.north.height = 70;
+        // this.south.width = '100%';
+        // this.south.height = 70;
+        // this.west.width = '20%';
+        // this.west.height = '100%';
+        // this.east.width = '20%';
+        // this.east.height = '100%';
     }
 
     @observable title: string = "button";

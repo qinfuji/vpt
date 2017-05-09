@@ -33,6 +33,7 @@ export  class Container extends Component {
     addComponent(comp: Component, grid: GridLayoutOption): void {
         this.checkAddToSelf(comp);
         this.compments.push(comp);
+        comp.parent = this;
         this.componentsGridInfo.push(grid);
     };
 

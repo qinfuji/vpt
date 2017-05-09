@@ -17,15 +17,21 @@ export class Component {
      */
     @observable fontSize: string | number;
 
+
+    /**
+     * 颜色
+     */
+    @observable color : string;
+
     /**
      * 宽度
      */
-    @observable width: string | number;
+    @observable width: number;
 
     /**
      * 高度
      */
-    @observable height: string | number;
+    @observable height: number;
 
     /**
      * 是否显示
@@ -37,5 +43,6 @@ export class Component {
      * 父组件
      */
     @observable parent : Component;
+
 
 }

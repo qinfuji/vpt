@@ -2,65 +2,81 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { observer } from 'mobx-react';
-import DomUtils from 'Utils';
+//import DomUtils from 'Utils';
 import { SplitPanel as SplitPanelModel, SplitPanelOrientation } from '../models/SplitPanel';
-import * as styles from './styles/splitPanel.css';
+import './styles/splitPanel.css';
 
 @observer
-export class SplitPanle extends React.Component<{ model: SplitPanelModel }, {}>{
-
-    getParentEle(){
-        let curEle:Element = ReactDOM.findDOMNode(this);
-        let parentEle = curEle.parentElement;
-        let rect =  DomUtils.DOM.getBoundingClientRect(parentEle);
-        return rect;
-    }
+export class SplitPanel extends React.Component<{ model: SplitPanelModel }, {}>{
 
     render() {
         let dividerLoaction = this.props.model.dividerLoaction;
+        let { parent } = this.props.model;
         let dividerSize = this.props.model.dividerSize;
-        let parentWidth = this.getParentEle().width;
+        let parentWidth = parent ? parent.width : this.props.model.width;
+        let parentHeight = parent ? parent.height : this.props.model.height;
+        let splitpanelStyle = {
+            width: parentWidth,
+            height: parentHeight
+        }
         if (this.props.model.orientation === SplitPanelOrientation.HORIZONTAL) {
-            let leftWidth = parentWidth * dividerLoaction - dividerSize/2;
+            let leftWidth = parentWidth * dividerLoaction - dividerSize / 2;
             let rightWidth = parentWidth - leftWidth - dividerSize;
-            let leftPanelStyle = {
-                position:"abstract",
+            let leftPanelStyle: React.CSSProperties = {
+                position: 'absolute',
                 width: leftWidth,
-                left:0,
-                top:0,
-                buttom:0
+                left: 0,
+                top: 0,
+                buttom: 0
             };
-            let rightPanelStyle = {
+            let rightPanelStyle: React.CSSProperties = {
                 width: rightWidth,
-                right:0,
-                top:0,
-                buttom:0,
-                position:"abstract"
+                right: 0,
+                top: 0,
+                buttom: 0,
+                position: 'absolute'
             }
-            let dividerStyle = {
+            let dividerStyle: React.CSSProperties = {
                 width: dividerSize,
-                position:'abstract',
-                top:0,buttom:0,
-                left:leftPanelStyle
+                position: 'absolute',
+                top: 0,
+                buttom: 0,
+                left: leftWidth
             };
-            return <div className="splitpanel horizontal">
+            return <div className="splitpanel" style={splitpanelStyle}>
                 <div style={leftPanelStyle}></div>
-                <div className="divide" style={dividerStyle}></div>
+                <div className="divider" style={{ dividerStyle }}></div>
                 <div style={rightPanelStyle}></div>
             </div>
         } else {
-            let topStyle = {
-                height: "20%",
+            let topHeight = parentHeight * dividerLoaction + dividerSize
+            let bottomHeight = parentHeight - topHeight - dividerSize;
+
+            let topStyle: React.CSSProperties = {
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                height: topHeight
             };
-            let bottomStyle = {
-                height: "80%",
+            let bottomStyle: React.CSSProperties = {
+                height: bottomHeight,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                position: 'absolute'
             }
-            let divideWidth = {
-                width: dividerSize
+            let dividerStyle: React.CSSProperties = {
+                position: 'absolute',
+                height: dividerSize,
+                left: 0,
+                right: 0,
+                top: topHeight
             }
-            return <div className="splitpanel vertical">
+
+            return <div className="splitpanel" style={splitpanelStyle}>
                 <div style={topStyle}></div>
-                <div className="divide" style={divideWidth}></div>
+                <div className="divider" style={dividerStyle}></div>
                 <div style={bottomStyle}></div>
             </div>
         }
