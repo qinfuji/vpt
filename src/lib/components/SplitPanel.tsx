@@ -2,7 +2,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { observer } from 'mobx-react';
-//import DomUtils from 'Utils';
 import { SplitPanel as SplitPanelModel, SplitPanelOrientation } from '../models/SplitPanel';
 import './styles/splitPanel.css';
 

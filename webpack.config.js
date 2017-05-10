@@ -17,10 +17,11 @@ module.exports = {
         vendor: [
             'react',
             'react-dom',
-            'react-router',
+            //'react-router',
             'mobx',
             'mobx-react',
-            'mobx-react-router'
+            //'mobx-react-router',
+            //'Utils'
         ]
     },
     output: {
@@ -53,10 +54,6 @@ module.exports = {
                     fallback: 'style-loader',
                     use: [{
                             loader: "css-loader", // translates CSS into CommonJS
-                            options: {
-                                /*modules: true,
-                                sourceMap: true*/
-                            }
                         },
                         {
                             loader: "postcss-loader"
@@ -77,13 +74,15 @@ module.exports = {
         new webpack.LoaderOptionsPlugin({
             options: {
                 context: sourcePath,
+                alias: {
+                    Utils: path.resolve(__dirname, 'node_modules1/Utils/lib/Utils.ts')
+                },
                 postcss: [
                     require('postcss-import')({ addDependencyTo: webpack }),
                     require('postcss-url')(),
                     require('postcss-cssnext')(),
                     require('postcss-reporter')(),
-                    require('postcss-browser-reporter')({ disabled: isProduction }),
-                    require('autoprefixer')()
+                    require('postcss-browser-reporter')({ disabled: isProduction })
                 ]
             }
         }),
