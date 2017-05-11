@@ -3,7 +3,7 @@ import { observable, toJS } from 'mobx';
 import { Component } from './Component';
 import { GridLayoutOption } from './GridLayoutOption';
 
-export  class Container extends Component {
+export class Container extends Component {
 
     /**
      * 组件数组
