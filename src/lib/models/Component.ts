@@ -1,6 +1,8 @@
 import { observable, action, autorun, observe, extendObservable, toJS } from 'mobx';
 
-export class Component {
+import { CssProperties } from './CssProperties';
+
+export class Component extends CssProperties {
     /**
      * 组件样式
      */
@@ -69,6 +71,4 @@ export class Component {
     @observable paddingRight: number = 0;
     @observable paddingLeft: number = 0;
     @observable paddingTop: number = 0;
-
-
 }

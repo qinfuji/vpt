@@ -17,9 +17,9 @@ let root: HTMLElement = document.getElementById("root");
 let clientRect = Utils.DOM.getBoundingClientRect(root);
 splitPanelModel.width = clientRect.width;
 splitPanelModel.height = clientRect.height;
-splitPanelModel.dividerLoaction = .2;
+splitPanelModel.dividerLoaction = 120;
 splitPanelModel.dividerSize = 5;
-splitPanelModel.orientation = SplitPanelOrientation.VERTICAL;
+splitPanelModel.orientation = SplitPanelOrientation.HORIZONTAL;
 ReactDOM.render(<SplitPanelView model={splitPanelModel} />, root);
 
 
