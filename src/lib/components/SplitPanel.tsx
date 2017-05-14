@@ -1,21 +1,17 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {toJS} from 'mobx'
+import { toJS } from 'mobx'
 import { observer } from 'mobx-react';
 import * as _ from 'lodash';
 import { SplitPanel as SplitPanelModel, SplitPanelOrientation } from '../models/SplitPanel';
+import { percentToNumber } from '../utils/misc'
 import { CssProperties } from '../models/CssProperties';
 import { $View } from '../ViewFactory';
 import './styles/splitPanel.css';
 
 @observer
 export class SplitPanel extends React.Component<{ model: SplitPanelModel }, {}>{
-
-    percenToNumber(percen: string) {
-        
-        return parseInt(percen) / 100;
-    }
 
     render() {
         let dividerLoaction = this.props.model.dividerLoaction;
@@ -32,7 +28,7 @@ export class SplitPanel extends React.Component<{ model: SplitPanelModel }, {}>{
 
             let leftWidth = 0;
             if (_.isString(dividerLoaction)) {
-                leftWidth = parentWidth * this.percenToNumber(dividerLoaction) - dividerSize / 2;
+                leftWidth = parentWidth * percentToNumber(dividerLoaction) - dividerSize / 2;
             } else {
                 leftWidth = dividerLoaction;
             }
@@ -77,7 +73,7 @@ export class SplitPanel extends React.Component<{ model: SplitPanelModel }, {}>{
 
             let topHeight = 0;
             if (_.isString(dividerLoaction)) {
-                topHeight = parentHeight * this.percenToNumber(dividerLoaction) + dividerSize
+                topHeight = parentHeight * percentToNumber(dividerLoaction) + dividerSize
             } else {
                 topHeight = dividerLoaction;
             }

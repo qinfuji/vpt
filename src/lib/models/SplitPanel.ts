@@ -164,4 +164,7 @@ export class SplitPanel extends Component {
         }
     };
 
+    parentMounted(){
+        this.calculateInnerPanel()
+    }
 }

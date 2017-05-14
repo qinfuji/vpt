@@ -1,53 +1,50 @@
-import { observable, toJS, action } from 'mobx';
+import { observable, toJS, action, computed } from 'mobx';
 import { Component } from './Component';
 import { Panel } from './Panel';
 import { GridLayoutOption } from './GridLayoutOption';
-import { Container } from './Container';
+import { SplitPanel } from './SplitPanel';
 
 export const enum BorderLayoutOption {
     NORTH, WEST, SOUTH, EAST, CENTER
 }
 
-export class BorderLayout {
+export class BorderLayout extends Component {
 
 
-    readonly north: Container = new Container(); //北
-    readonly west: Container = new Panel();  //西
-    readonly south: Container = new Container(); //南
-    readonly east: Container = new Container();  //東
-    readonly center: Container = new Container();
+    // readonly north: SplitPanel = new Panel(); //北
+    // readonly west: SplitPanel = new Panel();  //西
+    // readonly south: SplitPanel = new Panel(); //南
+    // readonly east: SplitPanel = new Panel();  //東
+    // readonly center: SplitPanel = new Panel();
 
     constructor() {
-        // this.north.width = '100%';
-        // this.north.height = 70;
-        // this.south.width = '100%';
-        // this.south.height = 70;
-        // this.west.width = '20%';
-        // this.west.height = '100%';
-        // this.east.width = '20%';
-        // this.east.height = '100%';
+        super();
     }
 
-    @observable title: string = "button";
+    calculatePanel() {
 
-    addLayoutComponent(comp: Component, constraints: BorderLayoutOption, gridLayoutOption: GridLayoutOption) {
-        if (constraints == BorderLayoutOption.EAST) {
-            this.east.addComponent(comp, gridLayoutOption);
-        } else if (constraints == BorderLayoutOption.NORTH) {
-            this.north.addComponent(comp, gridLayoutOption);
-        } else if (constraints == BorderLayoutOption.SOUTH) {
-            this.south.addComponent(comp, gridLayoutOption);
-        } else if (constraints == BorderLayoutOption.WEST) {
-            this.west.addComponent(comp, gridLayoutOption);
-        } else if (constraints == BorderLayoutOption.CENTER) {
-            this.center.addComponent(comp, gridLayoutOption);
-        }
-    };
+    }
+
+    parentMounted() { }
+
+    // addLayoutComponent(comp: Component, constraints: BorderLayoutOption, gridLayoutOption: GridLayoutOption) {
+    //     if (constraints == BorderLayoutOption.EAST) {
+    //         this.east.addComponent(comp, gridLayoutOption);
+    //     } else if (constraints == BorderLayoutOption.NORTH) {
+    //         this.north.addComponent(comp, gridLayoutOption);
+    //     } else if (constraints == BorderLayoutOption.SOUTH) {
+    //         this.south.addComponent(comp, gridLayoutOption);
+    //     } else if (constraints == BorderLayoutOption.WEST) {
+    //         this.west.addComponent(comp, gridLayoutOption);
+    //     } else if (constraints == BorderLayoutOption.CENTER) {
+    //         this.center.addComponent(comp, gridLayoutOption);
+    //     }
+    // };
 
     // /**
     //  * 设置North高度
     //  */
-    // @action set northHeight(height: number) {
+    // @computed set northSize(size: number) {
 
     // }
 

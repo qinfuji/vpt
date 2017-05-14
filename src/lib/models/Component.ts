@@ -1,38 +1,15 @@
-import { observable, action, autorun, observe, extendObservable, toJS } from 'mobx';
+import { observable, action, autorun, observe, extendObservable, toJS, computed } from 'mobx';
 
 import { CssProperties } from './CssProperties';
+import { Container } from './Container';
 
-export class Component extends CssProperties {
+export abstract class Component extends CssProperties {
+
+    private _parent: Container;
     /**
      * 组件样式
      */
     @observable className: string;
-
-    /**
-     * 字体
-     */
-    @observable fontFamily: string;
-
-    /**
-     * 字体大小
-     */
-    @observable fontSize: string | number;
-
-
-    /**
-     * 颜色
-     */
-    @observable color: string;
-
-    /**
-     * 宽度
-     */
-    @observable width: number;
-
-    /**
-     * 高度
-     */
-    @observable height: number;
 
     /**
      * 是否显示
@@ -42,33 +19,18 @@ export class Component extends CssProperties {
     /**
      * 父组件
      */
-    @observable parent: Component;
+    set parent(parent: Container) {
+        this._parent = parent;
+        this.parentMounted();
+    };
 
-    @observable position: string;
-    @observable left: number = 0;
-    @observable right: number = 0;
-    @observable top: number = 0;
-    @observable bottom: number = 0;
+    get parent() {
+        return this._parent;
+    }
 
-    @observable border: string;
-    @observable borderRightWidth: number;
-    @observable borderTopWidth: number;
-    @observable borderLefttWidth: number;
-    @observable borderRightColor: string;
-    @observable borderLeftColor: string;
-    @observable borderTopColor: string;
-    @observable borderButtomColor: string;
+    /**
+     * 当父容器被设置时调用
+     */
+    abstract parentMounted();
 
-    @observable margin: string;
-    @observable marginBottom: number = 0;
-    @observable marginLeft: number = 0;
-    @observable marginTop: number = 0;
-    @observable marginRight: number = 0;
-
-
-    @observable padding: string;
-    @observable paddingBottom: number = 0;
-    @observable paddingRight: number = 0;
-    @observable paddingLeft: number = 0;
-    @observable paddingTop: number = 0;
 }

@@ -6,4 +6,6 @@ export class Button extends Component {
     @observable disabled: boolean = false;
     @observable type: string = "button";
     @action onClick() { }
+
+    parentMounted() { }
 }
