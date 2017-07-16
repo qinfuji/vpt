@@ -23,7 +23,7 @@ class PageDataModuleExt extends PageDataModule{
 
 
 class BasePageContorl{
-    openDialog(path){
+    async openDialog(path){
 
     }
 }
@@ -57,22 +57,48 @@ class PageContorl(){
  * 组件的状态
  * 这个也是自动生成的，请不要轻易修改
  */
-class PageState{
+class PageDefine extends BaseDefine{
     @oberable btn = {label:""}
     @oberable table = {};
-    construct(){
-        this.btn =  new Button();
+    
+    eventProxy : EventProxy|null = null 
+
+    construct(pageControl){
+        this.Page =  new Page();
+        this.btn =   new Button({title:""});
         this.table = new Table();
+        this.splitLayout = new SplitLayout();
+        this.splitLayout.dividerLoaction = 20;
+        this.splitLayout.orientation = SplitPanelOrientation.HORIZONTAL;
+        this.pageControler = pageControl;
+        this.eventProxy = eventProxy(this.pageControle);
     }
 
     //这里设置组件间的关系
     @action init(){
+        this.splitLayout.add(this.but , SplitLayout.FIRST);
+        this.splitLayout.add(this.label, SplitLayout.SECOND);
+        setLayout(this.splitLayout);
         this.btn.label = "";
+        this.btn.onClick= eventProxy("onclick"); //使用时间代理s
         this.table.headFiles = [{}]
         this.table.dataBind(dataModule.users);
+        add(btn);
+        add(table);
+    }
+
+    ReactElement build(){
+        //构造ReactElement
     }
 }
 
 
 ButtonComponent.dataBind(PageModule.btmInstance);
+
+
+function eventProxy(control:any){
+    return function(eventName){
+        return control[eventName]? control[eventName].bind(control) : ()=> void
+    }
+}
 
