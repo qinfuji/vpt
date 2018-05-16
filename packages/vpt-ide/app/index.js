@@ -3,10 +3,8 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { AppContainer } from "react-hot-loader";
 import { Panel } from "vpt-components";
-//console.log(Panel.propTypes);
-let div = document.createElement("div");
-div.setAttribute("id", "app");
-document.body.appendChild(div);
+
+import './styles/global.less';
 
 const mountNode = document.getElementById("app");
 
