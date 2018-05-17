@@ -1,5 +1,4 @@
-import Panel from './panel'
+import Pane from './pane'
+import SplitPane from './split-pane'
 
-export {
-    Panel
-}
+export { Pane, SplitPane }
