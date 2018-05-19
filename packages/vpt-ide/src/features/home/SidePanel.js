@@ -8,7 +8,7 @@ import { Dropdown, Icon, Menu, Modal } from 'antd';
 import * as actions from './redux/actions';
 import history from '../../common/history';
 import { SearchInput } from '../common';
-import { showCmdDialog } from '../rekit-cmds/redux/actions';
+// import { showCmdDialog } from '../rekit-cmds/redux/actions';
 import { About, DemoAlert, ProjectExplorer } from './';
 
 export class SidePanel extends Component {
@@ -71,44 +71,30 @@ export class SidePanel extends Component {
     return (
       <Menu onClick={this.handleAddMenuClick}>
         <Menu.Item key="add-feature">
-          <Icon style={{ color: '#29b6f6' }}
-              type="book"
-          /> &nbsp;Add Feature
+          <Icon style={{ color: '#29b6f6' }} type="book" /> &nbsp;Add Feature
         </Menu.Item>
         <Menu.Item key="add-action">
-          <Icon style={{ color: '#ec407a' }}
-              type="notification"
-          /> &nbsp;Add
+          <Icon style={{ color: '#ec407a' }} type="notification" /> &nbsp;Add
           Action
         </Menu.Item>
         <Menu.Item key="add-component">
-          <Icon style={{ color: '#F08036' }}
-              type="appstore-o"
-          /> &nbsp;Add
+          <Icon style={{ color: '#F08036' }} type="appstore-o" /> &nbsp;Add
           Component
         </Menu.Item>
         <Menu.Item key="tests">
-          <Icon style={{ color: 'transparent' }}
-              type="appstore-o"
-          /> &nbsp;Run
+          <Icon style={{ color: 'transparent' }} type="appstore-o" /> &nbsp;Run
           Tests
         </Menu.Item>
         <Menu.Item key="test-coverage">
-          <Icon style={{ color: 'transparent' }}
-              type="appstore-o"
-          /> &nbsp;Test
+          <Icon style={{ color: 'transparent' }} type="appstore-o" /> &nbsp;Test
           Coverage
         </Menu.Item>
         <Menu.Item key="build">
-          <Icon style={{ color: 'transparent' }}
-              type="appstore-o"
-          />{' '}
+          <Icon style={{ color: 'transparent' }} type="appstore-o" />{' '}
           &nbsp;Build
         </Menu.Item>
         <Menu.Item key="about">
-          <Icon style={{ color: 'transparent' }}
-              type="appstore-o"
-          />{' '}
+          <Icon style={{ color: 'transparent' }} type="appstore-o" />{' '}
           &nbsp;About
         </Menu.Item>
       </Menu>
@@ -177,7 +163,7 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions, showCmdDialog }, dispatch)
+    actions: bindActionCreators({ ...actions /*showCmdDialog*/ }, dispatch)
   };
 }
 

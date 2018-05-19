@@ -6,12 +6,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Dropdown, Icon, Menu, message, Modal, Tree, Spin } from 'antd';
 import history from '../../common/history';
-import cmdSuccessNotification from '../rekit-cmds/cmdSuccessNotification';
-import {
-  execCmd,
-  showCmdDialog,
-  dismissExecCmdError
-} from '../rekit-cmds/redux/actions';
+//import cmdSuccessNotification from '../rekit-cmds/cmdSuccessNotification';
+// import {
+//   execCmd,
+//   showCmdDialog,
+//   dismissExecCmdError
+// } from '../rekit-cmds/redux/actions';
 import {
   getExpandedKeys,
   getFilteredExplorerTreeData
@@ -330,13 +330,13 @@ export class ProjectExplorer extends Component {
               })
               .then(() => {
                 hide();
-                cmdSuccessNotification(
-                  {
-                    commandName: 'delete',
-                    type: cmdContext.elementType
-                  },
-                  this.props.actions.showCmdDialog
-                );
+                // cmdSuccessNotification(
+                //   {
+                //     commandName: 'delete',
+                //     type: cmdContext.elementType
+                //   },
+                //   this.props.actions.showCmdDialog
+                // );
               })
               .catch((e = 'Unknown error.') => {
                 Modal.error({
@@ -401,9 +401,7 @@ export class ProjectExplorer extends Component {
 
   renderTreeNodeIcon(icon) {
     if (icon === 'features') {
-      return <img alt=""
-          src={require('../../images/logo_small.png')}
-             />;
+      return <img alt="" src={require('../../images/logo_small.png')} />;
     }
     return <Icon type={icon} />;
   }
@@ -515,7 +513,9 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
-      { execCmd, showCmdDialog, dismissExecCmdError },
+      {
+        /*execCmd, showCmdDialog, dismissExecCmdError*/
+      },
       dispatch
     )
   };

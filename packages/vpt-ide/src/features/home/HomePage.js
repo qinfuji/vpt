@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import { Col, Icon, Popover, Row } from 'antd';
-import { OverviewChordDiagram } from '../diagram';
-import { TestCoverageSummary } from '../rekit-tools';
 import { getOverviewStat } from './selectors/getOverviewStat';
 
 export class HomePage extends Component {
@@ -131,9 +129,7 @@ export class HomePage extends Component {
           </Col>
         </Row>
         <Row style={{ minWidth: 800 }}>
-          <Col className="diagram-container"
-              span="16"
-          >
+          <Col className="diagram-container" span="16">
             <Popover
                 content={this.renderOverviewDiagramHelp()}
                 placement="leftTop"
@@ -154,11 +150,8 @@ export class HomePage extends Component {
               />
             </Popover>
             <h3>Overview diagram</h3>
-            <OverviewChordDiagram size={this.state.svgSize} />
           </Col>
-          <Col className="test-coverage-container"
-              span="8"
-          >
+          <Col className="test-coverage-container" span="8">
             <Popover
                 content={this.renderTestCoverageHelp()}
                 placement="leftTop"
@@ -179,7 +172,6 @@ export class HomePage extends Component {
               />
             </Popover>
             <h3>Test coverage</h3>
-            <TestCoverageSummary />
           </Col>
         </Row>
       </div>
