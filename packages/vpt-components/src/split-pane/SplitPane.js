@@ -242,7 +242,6 @@ class SplitPane extends Component {
 
     let sizes = this.getSizes().concat()
     let updateRatio
-
     ;[primarySizePx, secondarySizePx].forEach((paneSize, idx) => {
       const unit = getUnit(sizes[resizerIndex + idx])
       if (unit !== 'ratio') {
@@ -304,7 +303,7 @@ class SplitPane extends Component {
     const elements = children.reduce((acc, child, idx) => {
       let pane
       const resizerIndex = idx - 1
-      const isPane = child.type === Pane
+      const isPane = child.type.name == 'Pane'
       const paneProps = {
         index: idx,
         'data-type': 'Pane',
@@ -314,7 +313,6 @@ class SplitPane extends Component {
         resizersSize,
         size: sizes[idx],
       }
-
       if (isPane) {
         pane = cloneElement(child, paneProps)
       } else {
@@ -339,7 +337,6 @@ class SplitPane extends Component {
     }, [])
 
     const StyleComponent = split === 'vertical' ? RowStyle : ColumnStyle
-
     return (
       <StyleComponent
         className={className}

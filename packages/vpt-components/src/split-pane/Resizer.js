@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-
+//background: #efe7e7;
 const Wrapper = styled.div`
   background: #000;
   opacity: 0.2;

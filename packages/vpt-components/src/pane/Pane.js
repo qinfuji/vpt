@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-
 import prefixAll from 'inline-style-prefixer/static'
-
 import { getUnit, convertSizeToCssValue } from '../util/unit'
 
 function PaneStyle({
