@@ -20,11 +20,11 @@ module.exports = type => {
 
   return {
     devtool: {
-      dev: 'eval',
+      dev: 'cheap-module-inline-source-map',
       dll: false,
       test: false,
       demo: false,
-      dist: 'source-map'
+      dist: false
     }[type],
     cache: true,
     context: path.join(__dirname, 'src'),
@@ -37,9 +37,8 @@ module.exports = type => {
       dev: {
         main: [
           'react-hot-loader/patch',
-          `webpack-hot-middleware/client?http://0.0.0.0:${
-            pkgJson.rekit.devPort
-          }`,
+          'webpack-hot-middleware/client?path=http://127.0.0.1:6078/__webpack_hmr',
+          'babel-polyfill',
           './styles/index.less',
           './styles/antdCustom.less',
           './index'

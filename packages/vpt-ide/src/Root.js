@@ -50,7 +50,7 @@ function renderRouteConfigV3(Container, routes, contextPath = '/') {
 
 export default class Root extends React.Component {
   static propTypes = {
-    routeConfig: PropTypes.object.isRequired,
+    routeConfig: PropTypes.array.isRequired,
     store: PropTypes.object.isRequired
   };
 

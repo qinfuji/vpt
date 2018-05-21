@@ -1,8 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
-const fs = require('fs');
-
-function fetchProjectData() {}
+function fetchProjectData() {
+  return {};
+}
 
 module.exports = fetchProjectData;

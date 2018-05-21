@@ -15,7 +15,7 @@ export function fetchProjectData() {
     });
 
     return new Promise((resolve, reject) => {
-      axios.get('/rekit/api/project-data').then(
+      axios.get('/vpt/api/project-data').then(
         res => {
           if (window.ON_VPT_LOAD) window.ON_VPT_LOAD();
           dispatch({
@@ -64,14 +64,15 @@ export function reducer(state, action) {
           elementById[ele.file] = ele;
         }
       };
+      /*
       action.data.features.forEach(f => {
         f.feature = f.key;
         featureById[f.key] = f;
         elementById[f.key] = f;
         [...f.components, ...f.actions, ...f.misc].forEach(setElementById);
-      });
+      });*/
 
-      action.data.srcFiles.forEach(setElementById);
+      //action.data.srcFiles.forEach(setElementById);
       const fileContentNeedReload = _.mapValues(
         state.fileContentById,
         () => true
@@ -82,16 +83,16 @@ export function reducer(state, action) {
         // ...action.data,
         elementById,
         featureById,
-        projectName: action.data.projectName,
-        srcFiles: action.data.srcFiles,
-        testCoverage: action.data.testCoverage,
-        projectRoot: action.data.projectRoot,
-        cssExt: action.data.cssExt,
-        rekit: action.data.rekit,
+        projectName: 'VPT1', //action.data.projectName,
+        srcFiles: [], //action.data.srcFiles,
+        testCoverage: [], //action.data.testCoverage,
+        projectRoot: '', //action.data.projectRoot,
+        cssExt: '', //action.data.cssExt,
+        rekit: '', //action.data.rekit,
         // fileContentById: {},
         fileContentNeedReload,
         oldFileContentById: state.fileContentById,
-        features: action.data.features.map(f => f.key),
+        features: [], //action.data.features.map(f => f.key),
         projectDataNeedReload: false,
         fetchProjectDataPending: false,
         fetchProjectDataError: null

@@ -168,10 +168,10 @@
     })();
 
     // Call this function when the initialization finishes
-    function ON_REKIT_STUDIO_LOAD() {
+    function ON_VPT_LOAD() {
       var node = document.getElementById('loading-wrapper');
       node && node.parentNode.removeChild(node);
-      ON_REKIT_STUDIO_LOAD = null; // This func could not be called multiple times
+      ON_VPT_LOAD = null; // This func could not be called multiple times
     }
   </script>
   <script>

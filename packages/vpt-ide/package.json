@@ -1,9 +1,9 @@
 {
-  "name": "rekit-studio",
-  "version": "2.2.1",
-  "description": "Web IDE for Rekit projects.",
+  "name": "vpt-ide",
+  "version": "0.9.9",
+  "description": "visual prototype tools projects.",
   "keywords": [
-    "rekit",
+    "vpt",
     "react",
     "redux",
     "react-router"
@@ -21,7 +21,8 @@
     "plugins": [
       "react-hot-loader/babel",
       "transform-decorators-legacy",
-      "lodash", [
+      "lodash",
+      [
         "import",
         {
           "libraryName": "antd"
@@ -62,7 +63,7 @@
       "text-summary"
     ],
     "cache": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "instrument": true
   },
   "rekit": {
@@ -91,6 +92,7 @@
     "history": "^4.6.1",
     "prettier": "1.10.2",
     "socket.io": "^2.0.1",
+    "vpt-components": "^1.0.0",
     "watchpack": "^1.3.1"
   },
   "devDependencies": {
@@ -123,12 +125,12 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.15.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-import-resolver-babel-module": "^4.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.5.1",
-    "eslint-config-prettier": "^2.9.0",
     "estraverse": "^4.2.0",
     "estraverse-fb": "^1.3.1",
     "express": "^4.15.2",

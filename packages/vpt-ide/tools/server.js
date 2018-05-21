@@ -59,7 +59,15 @@ function startDevServer() {
   app.use(
     devMiddleware(compiler, {
       publicPath: devConfig.output.publicPath,
-      historyApiFallback: true
+      historyApiFallback: true,
+      stats: {
+        colors: true
+      },
+      lazy: false,
+      watchOptions: {
+        aggregateTimeout: 300,
+        poll: true
+      }
     })
   );
 

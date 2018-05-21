@@ -39,7 +39,7 @@ if (process.env.NODE_ENV !== 'test') {
   // socket.on('test-finished', data => {
   //   store.dispatch({
   //     type: 'REKIT_TOOLS_TEST_FINISHED',
-  //     data
+  //     data..
   //   });
   // });
 
@@ -61,9 +61,13 @@ function renderApp(app) {
 
 renderApp(<Root routeConfig={routeConfig} store={store} />);
 
+// if (module.hot) {
+//   module.hot.accept('./common/routeConfig', () => {
+//     const nextRouteConfig = require('./common/routeConfig').default; // eslint-disable-line
+//     renderApp(<Root routeConfig={nextRouteConfig} store={store} />);
+//   });
+// }
+
 if (module.hot) {
-  module.hot.accept('./common/routeConfig', () => {
-    const nextRouteConfig = require('./common/routeConfig').default; // eslint-disable-line
-    renderApp(<Root routeConfig={nextRouteConfig} store={store} />);
-  });
+  module.hot.accept();
 }
