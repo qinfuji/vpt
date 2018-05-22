@@ -6,15 +6,17 @@
   src: url('../fonts/iconfont/iconfont.woff') format('woff');
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 #react-root {
   height: 100%;
 }
-body, td {
+body,
+td {
   color: #555;
-  font-family: Arial, "Helvetica Neue",Helvetica,sans-serif;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 a {
 }
@@ -47,4 +49,74 @@ h5 {
 h6 {
   font-size: 14px;
   font-weight: bold;
+}
+
+.home-app .top-menu .ant-menu,
+.ant-menu {
+  background: #9fa8bf;
+  color: #212329;
+}
+
+.home-app .top-menu .ant-menu-submenu-selected {
+  border-bottom: 0px solid #9fa8bf !important;
+  color: #9fa8bf !important;
+}
+
+.ant-menu-horizontal > .ant-menu-item-selected,
+.ant-menu-horizontal > .ant-menu-submenu-selected {
+  border-bottom: 0px solid #e8e8e8 !important;
+}
+
+.home-app .top-menu .ant-menu-item-selected {
+  color: #212329;
+}
+
+.home-app .top-menu .ant-menu-horizontal {
+  line-height: 32px;
+  border-bottom: 0px solid #e8e8e8 !important;
+}
+
+.ant-tabs-nav-wrap {
+  background-color: #323c51;
+}
+
+.home-app .ant-tabs.ant-tabs-card > .ant-tabs-bar {
+  border-bottom: 0;
+}
+
+.home-app .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+  background: #475477;
+  border: 0px solid;
+  border-color: #e8e8e8;
+  color: #fff;
+  margin-right: 0;
+  margin-left: 2px;
+}
+
+.home-app .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
+  background: #fff;
+  border-color: #e8e8e8;
+  color: #000;
+  padding-bottom: 1px;
+}
+
+.home-app .ant-tabs-tab-prev {
+  color: #fff;
+  right: 0;
+  background-color: #475477;
+}
+
+.home-app .ant-tabs-tab-next {
+  color: #fff;
+  right: 0;
+  background-color: #475477;
+}
+
+.ant-tabs-bar {
+  margin: 0 !important;
+}
+
+.home-app .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+  line-height: 30px;
+  height: 30px;
 }

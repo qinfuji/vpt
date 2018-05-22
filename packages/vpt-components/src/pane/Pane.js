@@ -22,6 +22,7 @@ function PaneStyle({
   let style = {
     display: 'flex',
     outline: 'none',
+    margin: '2px 1px',
   }
 
   style[styleProp.minSize] = convertSizeToCssValue(minSize, resizersSize)

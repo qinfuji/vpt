@@ -1,3 +1,0 @@
-/**
- * pagecomponents tree
- */

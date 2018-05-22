@@ -15,37 +15,39 @@ class TopMenu extends React.Component {
   };
   render() {
     return (
-      <Menu
-          inlineIndent="50"
-          mode="horizontal"
-          onClick={this.handleClick}
-          selectedKeys={[this.state.current]}
-          theme="dark"
-      >
-        <Menu.Item key="mail">
-          <Icon type="mail" />文件
-        </Menu.Item>
-        <Menu.Item disabled key="app">
-          <Icon type="appstore" />编辑
-        </Menu.Item>
-        <SubMenu
-            title={
-            <span>
-              <Icon type="setting" />选择
-            </span>
-          }
+      <div className="top-menu">
+        <Menu
+            inlineIndent="50"
+            mode="horizontal"
+            onClick={this.handleClick}
+            selectable={false}
+            selectedKeys={[this.state.current]}
         >
-          <MenuItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </MenuItemGroup>
-          <MenuItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </MenuItemGroup>
-        </SubMenu>
-        <Menu.Item key="alipay">查看</Menu.Item>
-      </Menu>
+          <Menu.Item key="mail">
+            <Icon type="mail" />文件
+          </Menu.Item>
+          <Menu.Item key="app">
+            <Icon type="appstore" />编辑
+          </Menu.Item>
+          <SubMenu
+              title={
+              <span>
+                <Icon type="setting" />选择
+              </span>
+            }
+          >
+            <MenuItemGroup title="Item 1">
+              <Menu.Item key="setting:1">Option 1</Menu.Item>
+              <Menu.Item key="setting:2">Option 2</Menu.Item>
+            </MenuItemGroup>
+            <MenuItemGroup title="Item 2">
+              <Menu.Item key="setting:3">Option 3</Menu.Item>
+              <Menu.Item key="setting:4">Option 4</Menu.Item>
+            </MenuItemGroup>
+          </SubMenu>
+          <Menu.Item key="alipay">查看</Menu.Item>
+        </Menu>
+      </div>
     );
   }
 }
