@@ -1,6 +1,6 @@
-'use strict';
+//创建项目
 
-function fetchProjectData() {
+function createProject() {
   return {
     componentModeList: [],
     projectInfo: {
@@ -12,4 +12,4 @@ function fetchProjectData() {
   };
 }
 
-module.exports = fetchProjectData;
+module.exports = createProject;

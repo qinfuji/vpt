@@ -1,16 +1,8 @@
 import _ from 'lodash';
 import initialState from './initialState';
 import { reducer as fetchProjectData } from './fetchProjectData';
-import { reducer as closeTabReducer } from './closeTab';
-import { reducer as moveTabReducer } from './moveTab';
-import { reducer as setSidePanelWidthReducer } from './setSidePanelWidth';
 
-const reducers = [
-  fetchProjectData,
-  closeTabReducer,
-  moveTabReducer,
-  setSidePanelWidthReducer
-];
+const reducers = [fetchProjectData];
 
 export default function reducer(state = initialState, action) {
   let newState;

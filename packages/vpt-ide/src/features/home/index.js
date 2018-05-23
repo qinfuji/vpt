@@ -6,3 +6,4 @@ export { default as PropertiesEditor } from './PropertiesEditor';
 export { default as App } from './App';
 export { default as HomePage } from './HomePage';
 export { default as ProjectExplorer } from './ProjectExplorer';
+export { default as SimpleProxyComponent } from './SimpleProxyComponent';

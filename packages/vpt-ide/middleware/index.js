@@ -4,6 +4,8 @@ const url = require('url');
 const _ = require('lodash');
 const bodyParser = require('body-parser');
 const fetchProjectData = require('./api/fetchProjectData');
+const fetchFileContent = require('./api/fetchFileContent');
+const createProject = require('./api/cerateProject');
 
 let lastProjectData = null;
 
@@ -50,6 +52,22 @@ module.exports = function() {
             );
             res.write(JSON.stringify(o));
             res.end();
+            break;
+          }
+          case '/api/file-content': {
+            let content = fetchFileContent();
+            let o = Object.assign(
+              {
+                bgProcesses
+              },
+              content
+            );
+            res.write(JSON.stringify(o));
+            res.end();
+            break;
+          }
+          case '/api/project-create': {
+            let projectData = createProject();
             break;
           }
           default: {
