@@ -1,5 +1,5 @@
 {
-  "extends": ["prettier", "eslint:recommended", "plugin:react/recommended"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
@@ -15,7 +15,7 @@
     "jasmine": true,
     "es6": true
   },
-  "plugins": ["prettier", "react"],
+  "plugins": ["react"],
   "globals": {
     "document": true,
     "Prism": true,
