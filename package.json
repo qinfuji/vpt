@@ -1,24 +1,25 @@
 {
-	"private": true,
-	"name": "vpt",
-	"engines": {
-		"yarn": "^1.0.0",
-		"node": ">=6.0.0"
-	},
-	"workspaces": [
-		"packages/*"
-	],
-	"scripts": {
-		"docs:prepare": "gitbook install",
-		"docs:watch": "npm run docs:prepare && gitbook serve",
-		"docs:build": "gitbook build",
-		"docs:publish": "npm run docs:prepare && rm -rf _book && gitbook build"
-	},
-	"devDependencies": {
-		"gitbook-cli": "^2.3.0",
-		"gitbook-plugin-anchorjs": "^1.1.1",
-		"gitbook-plugin-edit-link": "^2.0.2",
-		"gitbook-plugin-github": "^2.0.0",
-		"gitbook-plugin-prism": "^2.3.0"
-	}
+  "private": true,
+  "name": "vpt",
+  "engines": {
+    "yarn": "^1.0.0",
+    "node": ">=6.0.0"
+  },
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": ["**/vpt-ide", "**/vpt-ide/**"]
+  },
+  "scripts": {
+    "docs:prepare": "gitbook install",
+    "docs:watch": "npm run docs:prepare && gitbook serve",
+    "docs:build": "gitbook build",
+    "docs:publish": "npm run docs:prepare && rm -rf _book && gitbook build"
+  },
+  "devDependencies": {
+    "gitbook-cli": "^2.3.0",
+    "gitbook-plugin-anchorjs": "^1.1.1",
+    "gitbook-plugin-edit-link": "^2.0.2",
+    "gitbook-plugin-github": "^2.0.0",
+    "gitbook-plugin-prism": "^2.3.0"
+  }
 }
