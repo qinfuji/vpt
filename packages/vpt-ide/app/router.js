@@ -1,7 +1,8 @@
 module.exports = app => {
-  const { router, controller, io } = app;
-  router.get('/', controller.home.index);
-  router.get('/news', controller.news.list);
+  const { router, controller } = app;
+  router.get('/demo', controller.demo.demo.index);
 
-  io.of('/').route('server', io.controller.default.ping);
+  //io.of('/').route('server', io.controller.default.ping);
+
+  router.get('/api/project-data', controller.project.data);
 };

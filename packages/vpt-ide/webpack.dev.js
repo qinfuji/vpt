@@ -6,11 +6,13 @@ const path = require('path');
 const _ = require('lodash');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-inline-source-map',
   cache: true,
   context: path.join(__dirname, 'app/web'),
+  target: 'web',
   performance: {
     hints: false,
     maxEntrypointSize: 250,
@@ -19,8 +21,8 @@ module.exports = {
   entry: {
     main: [
       'react-hot-loader/patch',
-      'webpack-hot-middleware/client?path=http://127.0.0.1:6078/__webpack_hmr',
-      'babel-polyfill',
+      //'webpack-hot-middleware/client?path=http://127.0.0.1:6078/__webpack_hmr',
+      //'babel-polyfill',
       './styles/index.less',
       './styles/antdCustom.less',
       './index'
@@ -31,9 +33,9 @@ module.exports = {
     // Js bundle name, [name] will be replaced by which is in entry
     filename: '[name].js',
     // Where to save your build result
-    path: path.join(__dirname, 'web/build/static'),
+    path: path.join(__dirname, 'public'),
     // Exposed asset path. NOTE: the end '/' is necessary
-    publicPath: '/static/'
+    publicPath: '/public/'
   },
 
   stats: 'errors-only',
@@ -43,18 +45,31 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new CopyWebpackPlugin([
       {
-        from: '../../node_modules/monaco-editor/min/vs',
-        to: 'vs'
+        from: path.resolve(__dirname, './node_modules/monaco-editor/min/vs'),
+        to: path.join(__dirname, 'public/libs/vs')
       },
       {
-        from: './libs',
-        to: 'libs'
+        from: path.join(__dirname, './app/web/libs'),
+        to: path.join(__dirname, 'public/libs')
+      },
+      {
+        from: path.join(__dirname, 'app/web/images'),
+        to: path.join(__dirname, 'public/images')
+      },
+      {
+        from: path.join(__dirname, 'app/web/fonts'),
+        to: path.join(__dirname, 'public/fonts')
       }
     ]),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development')
       }
+    }),
+    new HtmlWebpackPlugin({
+      title: 'visual prototype tools',
+      template: path.join(__dirname, 'app/web/index.html'),
+      excludeChunks: ['main']
     })
   ]),
 

@@ -303,7 +303,7 @@ class SplitPane extends Component {
     const elements = children.reduce((acc, child, idx) => {
       let pane
       const resizerIndex = idx - 1
-      const isPane = child.type.name == 'Pane'
+      const isPane = child.type == Pane
       const paneProps = {
         index: idx,
         'data-type': 'Pane',

@@ -1,40 +1,28 @@
 const path = require('path');
+const fs = require('fs');
 
-module.exports = appInfo => {
-  return {
-    keys: 'qwqdsdfdxcsdsdsd12234$%%~',
-    view: {
-      defaultViewEngine: 'nunjucks',
-      mapping: {
-        '.tpl': 'nunjucks'
-      }
-    },
-    bodyParser: {
-      jsonLimit: '10mb'
-    },
-    news: {
-      pageSize: 5,
-      serverUrl: 'https://hacker-news.firebaseio.com/v0'
-    },
+module.exports = app => {
+  const exports = {};
 
-    middleware: ['robot', 'gzip', 'compress'],
-
-    robot: {
-      ua: [/Baiduspider/i, /curl/i]
-    },
-
-    compress: {
-      threshold: 2048
-    },
-
-    gzip: {
-      threshold: 1024 // 小于 1k 的响应体不压缩
-    },
-
-    webpack: {
-      port: 9000,
-      proxy: true,
-      webpackConfigList: [require(path.resolve(__dirname, '../webpack.dev.js'))]
-    }
+  exports.siteFile = {
+    '/favicon.ico': fs.readFileSync(
+      path.join(app.baseDir, 'app/web/images/logo.png')
+    )
   };
+
+  exports.logger = {
+    consoleLevel: 'DEBUG',
+    dir: path.join(app.baseDir, 'logs')
+  };
+
+  exports.static = {
+    prefix: '/public/',
+    dir: path.join(app.baseDir, 'public')
+  };
+
+  exports.keys = '123456';
+
+  exports.middleware = ['access'];
+
+  return exports;
 };

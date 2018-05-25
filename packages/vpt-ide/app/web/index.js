@@ -9,44 +9,16 @@ import configStore from './common/configStore';
 
 const store = configStore();
 
-if (process.env.NODE_ENV !== 'test') {
-  const socket = io();
-  socket.on('connect', () => {
-    console.log('[STUDIO] connected.');
-  });
+// if (process.env.NODE_ENV !== 'test') {
+//   const socket = io();
+//   socket.on('connect', () => {
+//     console.log('[STUDIO] connected.');
+//   });
 
-  // socket.on('fileChanged', data => {
-  //   store.dispatch({
-  //     type: 'PROJECT_FILE_CHANGED',
-  //     data
-  //   });
-  // });
-
-  // socket.on('output', data => {
-  //   store.dispatch({
-  //     type: 'REKIT_STUDIO_OUTPUT',
-  //     data
-  //   });
-  // });
-
-  // socket.on('build-finished', data => {
-  //   store.dispatch({
-  //     type: 'REKIT_TOOLS_BUILD_FINISHED',
-  //     data
-  //   });
-  // });
-
-  // socket.on('test-finished', data => {
-  //   store.dispatch({
-  //     type: 'REKIT_TOOLS_TEST_FINISHED',
-  //     data..
-  //   });
-  // });
-
-  socket.on('disconnect', () => {
-    console.log('[STUDIO] disconnected.');
-  });
-}
+//   socket.on('disconnect', () => {
+//     console.log('[STUDIO] disconnected.');
+//   });
+// }
 
 let root = document.getElementById('react-root');
 if (!root) {
@@ -56,7 +28,7 @@ if (!root) {
 }
 
 function renderApp(app) {
-  render(<AppContainer>{app}1</AppContainer>, root);
+  render(<AppContainer>{app}</AppContainer>, root);
 }
 
 renderApp(<Root routeConfig={routeConfig} store={store} />);
