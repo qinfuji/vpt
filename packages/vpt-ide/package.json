@@ -9,15 +9,13 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_ENV=development webpack --config webpack.dev.js",
-    "build:test": "cross-env easywebpack build test",
-    "build:prod": "cross-env easywebpack build prod",
+    "build:prod":
+      "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "build:dll": "webpack --config webpack.dll.js",
     "debug": "egg-bin debug",
     "dev":
       "npm run build:dll & cross-env NODE_ENV=development WORKERS=1  node index.js",
     "start": "cross-env EGG_SERVER_ENV=prod NODE_ENV=production node index.js",
-    "kill-port": "kill -9 $(lsof -i:8888 |grep 'node'|aw '{print $2}') ",
     "lint": "eslint .",
     "fix": "eslint --fix .",
     "ii": "npm install --registry https://registry.npm.taobao.org"

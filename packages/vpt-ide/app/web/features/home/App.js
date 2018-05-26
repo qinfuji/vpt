@@ -7,12 +7,9 @@ import { LocaleProvider, Modal, Spin } from 'antd';
 import { SidePanel, TopMenu, PageOutline, PropertiesEditor } from './';
 import { fetchProjectData } from './redux/actions';
 import { SplitPane, Pane } from 'vpt-components';
+import styled from 'styled-components';
 
-/*
-  This is the root component of your app. Here you define the overall layout
-  and the container of the react router. The default one is a two columns layout.
-  You should adjust it acording to the type of your app.
-*/
+const AppContainer = styled.div``;
 
 export class App extends React.Component {
   static propTypes = {
@@ -49,7 +46,7 @@ export class App extends React.Component {
         <div className="home-app">
           <TopMenu />
           <SplitPane split="vertical">
-            <Pane initialSize="220px" minSize="220px">
+            <Pane initialSize="225px" minSize="220px">
               <SidePanel />
             </Pane>
             <Pane>编辑层</Pane>

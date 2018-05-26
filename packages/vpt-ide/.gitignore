@@ -38,3 +38,5 @@ build
 dist
 run
 logs
+public
+dll

@@ -14,7 +14,7 @@ module.exports = app => {
   // };
 
   exports.webpack = {
-    webpackConfigList: [require(path.join(app.baseDir, 'webpack.dev.js'))],
+    webpackConfigList: [require(path.join(app.baseDir, 'webpack.config.js'))],
     proxy: {
       host: 'http://127.0.0.1:9000',
       match: /^\/public\//
