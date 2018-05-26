@@ -23,9 +23,34 @@ class TopMenu extends React.Component {
             selectable={false}
             selectedKeys={[this.state.current]}
         >
-          <Menu.Item key="mail">
-            <Icon type="mail" />文件
-          </Menu.Item>
+          <SubMenu
+              title={
+              <span>
+                <Icon type="mail" />文件
+              </span>
+            }
+          >
+            <Menu.Item key="setting:1">
+              <Icon type="" />创建项目
+            </Menu.Item>
+            <Menu.Item key="setting:2">
+              <Icon type="folder-open" />打开项目
+            </Menu.Item>
+            <Menu.Item key="setting:3">
+              <Icon type="" />关闭项目
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key="setting:4">
+              <Icon type="setting" />项目设置
+            </Menu.Item>
+            <Menu.Item key="setting:5">
+              <Icon type="profile" />项目结构
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key="setting:6">
+              <Icon type="profile" />导出项目
+            </Menu.Item>
+          </SubMenu>
           <Menu.Item key="app">
             <Icon type="appstore" />编辑
           </Menu.Item>
