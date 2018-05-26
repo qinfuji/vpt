@@ -10,7 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-inline-source-map',
-  mode: 'production', //styled-component 可能没有配置好，这里需要使用生产模式
+  mode: process.env.NODE_ENV, //styled-component 可能没有配置好，这里需要使用生产模式
   cache: true,
   context: path.join(__dirname, 'app/web'),
   target: 'web',
@@ -39,6 +39,20 @@ module.exports = {
   },
 
   stats: 'errors-only',
+
+  resolve: {
+    alias: {
+      /*
+       styled-components不能同事存在两个实例，可能会导致css错误，
+       在vpt-components在使用lerna是在vpt-ide中是软连接，导致使用vpt root上的node_modules
+       这里强制指定styled-components的路径
+      */
+      'styled-components': path.resolve(
+        __dirname,
+        './node_modules/styled-components/dist/styled-components.es.js'
+      )
+    }
+  },
 
   plugins: _.compact([
     new webpack.HotModuleReplacementPlugin(),

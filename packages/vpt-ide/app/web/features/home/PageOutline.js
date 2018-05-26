@@ -11,7 +11,7 @@ const PageOutlineHead = styled.div`
   height: 25px;
   line-height: 25px;
   background-color: #455274;
-  color: #fff;
+  color: #ffff;
   padding-left: 10px;
 `;
 
