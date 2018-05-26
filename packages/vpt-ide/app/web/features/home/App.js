@@ -52,7 +52,7 @@ export class App extends React.Component {
             <Pane initialSize="220px" minSize="220px">
               <SidePanel />
             </Pane>
-            <Pane>456</Pane>
+            <Pane>编辑层11</Pane>
             <Pane initialSize="25%" minSize="278px">
               <SplitPane split="horizontal">
                 <Pane initialSize="25%">

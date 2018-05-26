@@ -12,8 +12,10 @@
     "build": "cross-env easywebpack build prod",
     "build:test": "cross-env easywebpack build test",
     "build:prod": "cross-env easywebpack build prod",
+    "build:dll": "webpack --config webpack.dll.js",
     "debug": "egg-bin debug",
-    "dev": "cross-env NODE_ENV=development WORKERS=1 node index.js",
+    "dev":
+      "cross-env EGG_SERVER_ENV=local NODE_ENV=development WORKERS=1  node index.js",
     "start": "cross-env EGG_SERVER_ENV=prod NODE_ENV=production node index.js",
     "kill-port": "kill -9 $(lsof -i:8888 |grep 'node'|aw '{print $2}') ",
     "lint": "eslint .",
@@ -29,7 +31,8 @@
     "eslint-config-eslint": "^4.0.0",
     "koa-compress": "^3.0.0",
     "koa-is-json": "^1.0.0",
-    "moment": "^2.22.1"
+    "moment": "^2.22.1",
+    "webpack-cli": "^2.1.4"
   },
   "devDependencies": {
     "antd": "^3.5.3",

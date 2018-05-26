@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-inline-source-map',
+  mode: 'production', //styled-component 可能没有配置好，这里需要使用生产模式
   cache: true,
   context: path.join(__dirname, 'app/web'),
   target: 'web',
@@ -21,8 +22,7 @@ module.exports = {
   entry: {
     main: [
       'react-hot-loader/patch',
-      //'webpack-hot-middleware/client?path=http://127.0.0.1:6078/__webpack_hmr',
-      //'babel-polyfill',
+      'webpack-hot-middleware/client?path=http://127.0.0.1:9000/__webpack_hmr',
       './styles/index.less',
       './styles/antdCustom.less',
       './index'
@@ -43,6 +43,10 @@ module.exports = {
   plugins: _.compact([
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DllReferencePlugin({
+      context: path.join(__dirname, 'app/web'),
+      manifest: require(path.join(__dirname, './dll/manifest.json'))
+    }),
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, './node_modules/monaco-editor/min/vs'),
@@ -59,13 +63,12 @@ module.exports = {
       {
         from: path.join(__dirname, 'app/web/fonts'),
         to: path.join(__dirname, 'public/fonts')
+      },
+      {
+        from: path.join(__dirname, 'dll'),
+        to: path.join(__dirname, 'public/dll')
       }
     ]),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development')
-      }
-    }),
     new HtmlWebpackPlugin({
       title: 'visual prototype tools',
       template: path.join(__dirname, 'app/web/index.html'),
@@ -93,12 +96,6 @@ module.exports = {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
       },
-      /*
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
-      */
       {
         test: /\.(png|jpe?g|gif)$/,
         loader: 'url-loader?limit=8192'

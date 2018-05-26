@@ -1,31 +1,26 @@
 const path = require('path')
-const {
-  plugins,
-  rules
-} = require('webpack-atoms');
+const { plugins, rules } = require('webpack-atoms')
 
 module.exports = {
   devtool: 'source-map',
   entry: {
-    'vpt-components': './src/index.js'
+    'vpt-components': './src/index.js',
   },
   output: {
     path: path.join(__dirname, './dist'),
     filename: '[name].js',
     library: 'VptComponents',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
   module: {
-    rules: [
-      rules.js()
-    ]
+    rules: [rules.js()],
   },
   externals: {
     react: {
       root: 'React',
       commonjs: 'react',
       commonjs2: 'react',
-      amd: 'react'
+      amd: 'react',
     },
     'react-dom': {
       root: 'ReactDOM',
@@ -39,7 +34,7 @@ module.exports = {
     // plugins.uglify(),
     plugins.banner({
       banner: '',
-      entryOnly: true
+      entryOnly: true,
     }),
   ],
   node: {
