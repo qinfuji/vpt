@@ -7,12 +7,14 @@ module.exports = app => {
       const { ctx } = this;
       ctx.body = {
         components: [], //可以选择的组件
+        dependencies: {}, //项目依赖
         projectInfo: {}, //项目基本信息
+        theme: {}, //主题配置
+        setting: {}, //想念哦全局设置
         projectStructure: {
           pages: [], //页面
           layout: {}, //布局信息
-          libs: {}, //项目通用库
-          dependencies: {} //项目依赖
+          libs: {} //项目通用库
         } //当前项目文件信息
       };
     }
@@ -20,7 +22,7 @@ module.exports = app => {
     /**
      * 添加可以编辑的组件
      */
-    async addEditableComp() {}
+    async addComponent() {}
     /**
      * 创建项目
      */

@@ -1,20 +1,7 @@
 import App from '../features/home/App';
 import homeRoute from '../features/home/route';
-//import { PageNotFound } from '../features/common';
-// import commonRoute from '../features/common/route';
-// import rekitCmdsRoute from '../features/rekit-cmds/route';
-// import diagramRoute from '../features/diagram/route';
-// import rekitToolsRoute from '../features/rekit-tools/route';
 
-// NOTE: DO NOT CHANGE the 'childRoutes' name and the declaration pattern.
-// This is used for Rekit cmds to register routes for new features, remove features, etc.
-const childRoutes = [
-  homeRoute
-  // commonRoute,
-  // rekitCmdsRoute,
-  // diagramRoute,
-  // rekitToolsRoute,
-];
+const childRoutes = [homeRoute];
 
 const routes = [
   {

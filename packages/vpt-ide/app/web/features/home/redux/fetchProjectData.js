@@ -15,7 +15,7 @@ export function fetchProjectData() {
     });
 
     return new Promise((resolve, reject) => {
-      axios.get('/api/project-data').then(
+      axios.get('/project/test/data').then(
         res => {
           console.log(res);
           if (window.ON_VPT_LOAD) window.ON_VPT_LOAD();

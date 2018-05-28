@@ -8,7 +8,8 @@ import { SimpleProxyComponent } from './';
 
 const tabkey = {
   TOOLS_BOX: 'Tools Box',
-  PROJECT_EXPLORER: 'Project Explorer'
+  PROJECT_EXPLORER: 'Project Explorer',
+  Dependenties: 'Dependenties'
 };
 
 const Container = styled.div`
@@ -36,6 +37,7 @@ class SidePanel extends Component {
               key={tabkey.PROJECT_EXPLORER}
               tab={tabkey.PROJECT_EXPLORER}
           />
+          <TabPane key={tabkey.Dependenties} tab={tabkey.Dependenties} />
         </Tabs>
         <Content>
           <SimpleProxyComponent component={CurComponent} />

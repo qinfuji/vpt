@@ -843,7 +843,7 @@ assert-plus@^0.2.0:
   version "0.2.0"
   resolved "http://registry.npm.taobao.org/assert-plus/download/assert-plus-0.2.0.tgz#d74e1b87e7affc0db8aadb7021f3fe48101ab234"
 
-assert@^1.1.1:
+assert@^1.1.1, assert@^1.4.1:
   version "1.4.1"
   resolved "http://registry.npm.taobao.org/assert/download/assert-1.4.1.tgz#99912d591836b5a6f5b345c0f07eefc08fc65d91"
   dependencies:
@@ -3967,11 +3967,31 @@ egg-onerror@^2.0.0:
     mustache "^2.3.0"
     stack-trace "^0.0.10"
 
+egg-passport-local@^1.2.1:
+  version "1.2.1"
+  resolved "http://registry.npm.taobao.org/egg-passport-local/download/egg-passport-local-1.2.1.tgz#78e495dc2dafbaf242babb2e8b4831953eb37ff7"
+  dependencies:
+    debug "^3.1.0"
+    passport-local "^1.0.0"
+
+egg-passport@^2.0.1:
+  version "2.0.1"
+  resolved "http://registry.npm.taobao.org/egg-passport/download/egg-passport-2.0.1.tgz#ac98233f5e6eb563ed730fd7347c58ab64fb8474"
+  dependencies:
+    debug "^3.1.0"
+    passport "^0.3.2"
+
 egg-path-matching@^1.0.0, egg-path-matching@^1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/egg-path-matching/download/egg-path-matching-1.0.1.tgz#ccfc4e408acd1cf94a7f672fb8c969e456883913"
   dependencies:
     path-to-regexp "^1.7.0"
+
+egg-router-plus@^1.2.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/egg-router-plus/download/egg-router-plus-1.2.0.tgz#060ad97adbce479b28f4fdeb97d11d2d15a0c7b1"
+  dependencies:
+    is-type-of "^1.2.0"
 
 egg-schedule@^3.3.0:
   version "3.3.0"
@@ -9496,6 +9516,23 @@ pascalcase@^0.1.1:
   version "0.1.1"
   resolved "http://registry.npm.taobao.org/pascalcase/download/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
 
+passport-local@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/passport-local/download/passport-local-1.0.0.tgz#1fe63268c92e75606626437e3b906662c15ba6ee"
+  dependencies:
+    passport-strategy "1.x.x"
+
+passport-strategy@1.x.x:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/passport-strategy/download/passport-strategy-1.0.0.tgz#b5539aa8fc225a3d1ad179476ddf236b440f52e4"
+
+passport@^0.3.2:
+  version "0.3.2"
+  resolved "http://registry.npm.taobao.org/passport/download/passport-0.3.2.tgz#9dd009f915e8fe095b0124a01b8f82da07510102"
+  dependencies:
+    passport-strategy "1.x.x"
+    pause "0.0.1"
+
 path-browserify@0.0.0:
   version "0.0.0"
   resolved "http://registry.npm.taobao.org/path-browserify/download/path-browserify-0.0.0.tgz#a0b870729aae214005b7d5032ec2cbbb0fb4451a"
@@ -9565,6 +9602,10 @@ path-type@^3.0.0:
 pathval@^1.0.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/pathval/download/pathval-1.1.0.tgz#b942e6d4bde653005ef6b71361def8727d0645e0"
+
+pause@0.0.1:
+  version "0.0.1"
+  resolved "http://registry.npm.taobao.org/pause/download/pause-0.0.1.tgz#1d408b3fdb76923b9543d96fb4c9dfd535d9cb5d"
 
 pbkdf2@^3.0.3:
   version "3.0.16"
