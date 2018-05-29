@@ -71,12 +71,20 @@ module.exports = {
         to: path.join(__dirname, 'public/libs/vs')
       },
       {
+        from: path.join(__dirname, './app/web/login.html'),
+        to: path.join(__dirname, 'public')
+      },
+      {
         from: path.join(__dirname, './app/web/libs'),
         to: path.join(__dirname, 'public/libs')
       },
       {
         from: path.join(__dirname, 'app/web/images'),
         to: path.join(__dirname, 'public/images')
+      },
+      {
+        from: path.join(__dirname, 'app/web/asset'),
+        to: path.join(__dirname, 'public/asset')
       },
       {
         from: path.join(__dirname, 'app/web/fonts'),

@@ -8,6 +8,7 @@ import { SidePanel, TopMenu, PageOutline, PropertiesEditor } from './';
 import { fetchProjectData } from './redux/actions';
 import { SplitPane, Pane } from 'vpt-components';
 import styled from 'styled-components';
+import cookies from 'js-cookie';
 
 const AppContainer = styled.div``;
 
@@ -40,7 +41,8 @@ export class App extends React.Component {
     if (!this.props.home.features) {
       return this.renderLoading();
     }
-
+    let userInfo = cookies.get('userInfo');
+    console.log('userInfo', JSON.parse(userInfo));
     return (
       <LocaleProvider locale={enUS}>
         <div className="home-app">
@@ -49,7 +51,7 @@ export class App extends React.Component {
             <Pane initialSize="225px" minSize="220px">
               <SidePanel />
             </Pane>
-            <Pane>编辑层</Pane>
+            <Pane>编辑层{userInfo}11</Pane>
             <Pane initialSize="320px" minSize="278px">
               <SplitPane split="horizontal">
                 <Pane initialSize="25%">

@@ -5,6 +5,7 @@ module.exports = app => {
      */
     async data() {
       const { ctx } = this;
+      console.log('user', this.ctx.user);
       ctx.body = {
         components: [], //可以选择的组件
         dependencies: {}, //项目依赖
