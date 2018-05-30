@@ -2,33 +2,36 @@ import _ from 'lodash';
 import axios from 'axios';
 
 import {
-  HOME_FETCH_PROJECT_DATA_BEGIN,
-  HOME_FETCH_PROJECT_DATA_SUCCESS,
-  HOME_FETCH_PROJECT_DATA_FAILURE,
-  HOME_FETCH_PROJECT_DATA_DISMISS_ERROR
+  FETCH_PROJECT_DATA_BEGIN,
+  FETCH_PROJECT_DATA_SUCCESS,
+  FETCH_PROJECT_DATA_FAILURE
 } from './constants';
 
-export function fetchProjectData() {
+export function fetchProjectData(projectInfo) {
   return dispatch => {
     dispatch({
-      type: HOME_FETCH_PROJECT_DATA_BEGIN
+      type: FETCH_PROJECT_DATA_BEGIN
     });
-
     return new Promise((resolve, reject) => {
-      axios.get('/projects/asdasd').then(
+      console.log('start fetchProjectData');
+      //let pid = projectInfo.id;
+      //let url = '/projects/11';
+
+      axios.get('/projects/11').then(
         res => {
-          console.log(res);
+          console.log('----->', res);
           if (window.ON_VPT_LOAD) window.ON_VPT_LOAD();
           dispatch({
-            type: HOME_FETCH_PROJECT_DATA_SUCCESS,
+            type: FETCH_PROJECT_DATA_SUCCESS,
             data: res.data
           });
           resolve(res.data);
         },
         err => {
-          if (window.ON_REKIT_STUDIO_LOAD) window.ON_REKIT_STUDIO_LOAD();
+          console.log('--->', err);
+          if (window.ON_VPT_LOAD) window.ON_VPT_LOAD();
           dispatch({
-            type: HOME_FETCH_PROJECT_DATA_FAILURE,
+            type: FETCH_PROJECT_DATA_FAILURE,
             data: { error: err }
           });
           reject(err);
@@ -38,78 +41,40 @@ export function fetchProjectData() {
   };
 }
 
-export function dismissFetchProjectDataError() {
-  return {
-    type: HOME_FETCH_PROJECT_DATA_DISMISS_ERROR
-  };
-}
-
 export function reducer(state, action) {
   switch (action.type) {
-    case HOME_FETCH_PROJECT_DATA_BEGIN:
+    case FETCH_PROJECT_DATA_BEGIN:
       return {
         ...state,
         fetchProjectDataPending: true,
         fetchProjectDataError: null
       };
 
-    case HOME_FETCH_PROJECT_DATA_SUCCESS: {
-      const featureById = {};
-      const elementById = {};
-
-      const setElementById = ele => {
-        if (ele.children) {
-          // Only applies to misc
-          ele.children.forEach(setElementById);
-        } else {
-          elementById[ele.file] = ele;
-        }
-      };
-      /*
-      action.data.features.forEach(f => {
-        f.feature = f.key;
-        featureById[f.key] = f;
-        elementById[f.key] = f;
-        [...f.components, ...f.actions, ...f.misc].forEach(setElementById);
-      });*/
-
-      //action.data.srcFiles.forEach(setElementById);
-      const fileContentNeedReload = _.mapValues(
-        state.fileContentById,
-        () => true
-      );
+    case FETCH_PROJECT_DATA_SUCCESS: {
       return {
         ...state,
-        // projectData: action.data,
-        // ...action.data,
-        elementById,
-        featureById,
-        projectName: 'VPT1', //action.data.projectName,
-        srcFiles: [], //action.data.srcFiles,
-        testCoverage: [], //action.data.testCoverage,
-        projectRoot: '', //action.data.projectRoot,
-        cssExt: '', //action.data.cssExt,
-        rekit: '', //action.data.rekit,
-        // fileContentById: {},
-        fileContentNeedReload,
-        oldFileContentById: state.fileContentById,
-        features: [], //action.data.features.map(f => f.key),
+        project: {
+          components: [], //可以选择的组件
+          dependencies: {}, //项目依赖
+          projectInfo: {}, //项目基本信息
+          theme: {}, //主题配置
+          setting: {}, //想念哦全局设置
+          structure: {
+            pages: [], //页面
+            layout: {}, //布局信息
+            libs: {} //项目通用库
+          }
+        },
         projectDataNeedReload: false,
         fetchProjectDataPending: false,
         fetchProjectDataError: null
       };
     }
-    case HOME_FETCH_PROJECT_DATA_FAILURE:
+    case FETCH_PROJECT_DATA_FAILURE:
       return {
         ...state,
         fetchProjectDataPending: false,
         fetchProjectDataError: action.data.error
-      };
-
-    case HOME_FETCH_PROJECT_DATA_DISMISS_ERROR:
-      return {
-        ...state,
-        fetchProjectDataError: null
       };
 
     default:

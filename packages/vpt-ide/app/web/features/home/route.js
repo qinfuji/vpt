@@ -1,10 +1,3 @@
-import //ElementPage,
-//RoutesPage,
-//HomePage,
-//WelcomePage
-//AllRoutesPage
-'./';
-
 export default {
   path: '',
   name: 'Home',

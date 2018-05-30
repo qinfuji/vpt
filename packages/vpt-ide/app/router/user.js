@@ -1,8 +1,6 @@
 module.exports = app => {
-  const { info } = app.controller.user;
+  const { info, userProjects } = app.controller.user;
 
-  /**
-   * 项目数据
-   */
-  app.router.get('/users/:id', info);
+  info && app.router.get('/users/:id', info);
+  userProjects && app.router.get('/users/:uid/projecs', userProjects);
 };

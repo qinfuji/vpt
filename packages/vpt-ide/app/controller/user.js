@@ -6,6 +6,11 @@ class UserController extends Controller {
       name: `hello ${ctx.params.id}`
     };
   }
+
+  async projects() {
+    const { ctx } = this;
+    ctx.body = [{}, []];
+  }
 }
 
 module.exports = UserController;
