@@ -1,30 +1,119 @@
 {
-  "presets": [
-    "es2015",
-    "react",
-    "babel-preset-stage-0",
-    ["env", { "modules": false }]
-  ],
-  "plugins": [
-    "transform-decorators-legacy",
-    [
-      "transform-object-rest-spread",
-      {
-        "useBuiltIns": true
-      }
-    ],
-    [
-      "transform-class-properties",
-      {
-        "spec": true
-      }
-    ],
-    [
-      "import",
-      {
-        "libraryName": "antd"
-      }
-    ]
-  ],
-  "comments": false
+	"env": {
+		"test": {
+			"plugins": [
+				[
+					"transform-class-properties",
+					{
+						"spec": true
+					}
+				],
+				["transform-object-rest-spread"],
+				["babel-plugin-transform-require-ignore", {
+					"extensions": [".less", ".css"]
+				}],
+			],
+			"presets": [
+				["env", {
+					"targets": {
+						"browsers": ["last 2 versions"]
+					}
+				}],
+				"react"
+			]
+		},
+		"development": {
+			"plugins": [
+				[
+					"transform-class-properties",
+					{
+						"spec": true
+					}
+				],
+				["transform-object-rest-spread"],
+				"lodash"
+			],
+			"presets": [
+				["env", {
+					"targets": {
+						"browsers": ["last 2 versions"]
+					}
+				}],
+				"react"
+			]
+		},
+		"documentation": {
+			"plugins": [
+				[
+					"transform-class-properties",
+					{
+						"spec": true
+					}
+				],
+				["transform-object-rest-spread"],
+				"lodash"
+			],
+			"presets": [
+				["env", {
+					"targets": {
+						"browsers": ["last 2 versions"]
+					}
+				}],
+				"react"
+			]
+		},
+		"production": {
+			"plugins": [
+				[
+					"transform-class-properties",
+					{
+						"spec": true
+					}
+				],
+				["transform-object-rest-spread"],
+				["babel-plugin-transform-require-ignore", {
+					"extensions": [".less", ".css"]
+				}],
+				["react-peek/babel", {
+					"minifyStatics": true
+				}],
+				"lodash"
+			],
+			"presets": [
+				["env", {
+					"targets": {
+						"browsers": ["last 2 versions"]
+					}
+				}],
+				"react"
+			]
+		},
+		"modules": {
+			"plugins": [
+				[
+					"transform-class-properties",
+					{
+						"spec": true
+					}
+				],
+				["transform-object-rest-spread"],
+				["babel-plugin-transform-require-ignore", {
+					"extensions": [".less", ".css"]
+				}],
+				["react-peek/babel", {
+					"minifyStatics": true
+				}],
+				"lodash"
+			],
+			"presets": [
+				["env", {
+					"targets": {
+						"browsers": ["last 2 versions"]
+					},
+					"modules": false
+				}],
+				"react"
+			]
+		}
+	}
 }

@@ -8,14 +8,28 @@ const getDefaultExport = module => {
 module.exports = [
 	{
 		name: 'Tabs',
-		component: getDefaultExport(require('../src/components/Tbas/Tabs')),
+		component: getDefaultExport(require('../src/components/Tabs/Tabs')),
 		examplesContext: require.context(
-			'../src/components/Accordion/examples',
+			'../src/components/Tabs/examples',
 			true,
 			/\.jsx?$/
 		),
 		examplesContextRaw: require.context(
-			'!!raw-loader!../src/components/Accordion/examples',
+			'!!raw-loader!../src/components/Tabs/examples',
+			true,
+			/\.jsx?$/
+		)
+	},
+	{
+		name: 'Button',
+		component: getDefaultExport(require('../src/components/Button/Button')),
+		examplesContext: require.context(
+			'../src/components/Button/examples',
+			true,
+			/\.jsx?$/
+		),
+		examplesContextRaw: require.context(
+			'!!raw-loader!../src/components/Button/examples',
 			true,
 			/\.jsx?$/
 		)

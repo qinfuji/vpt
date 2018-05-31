@@ -30,6 +30,7 @@
     "release": "np",
     "start": "npm run docs",
     "storybook": "start-storybook -p 6006",
+    "stylelint": "stylelint 'src/**/*.less' --config .stylelintrc",
     "test": "npm run lint && npm run cover",
     "upload-docs": "npm run build-docs && scripts/upload-docs-build-docspot.sh",
     "watch": "npm run jest -- --watch",

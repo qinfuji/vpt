@@ -3,7 +3,6 @@
 
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -14,7 +13,7 @@ module.exports = {
 		path: path.join(__dirname, 'dist'),
 		filename: isProduction ? 'vpt-components.min.js' : 'vpt-components.js',
 		libraryTarget: 'umd',
-		library: 'vpt-components'
+		library: 'Lucid'
 	},
 	module: {
 		rules: [
@@ -37,15 +36,7 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.jsx']
 	},
-	optimization: {
-		minimize: true,
-		minimizer: [
-			new UglifyJsPlugin({
-				sourceMap: !isProduction
-			})
-		]
-	},
-	devtool: isProduction ? false : 'cheap-module-inline-source-map',
+	devtool: isProduction ? false : 'source-map',
 	externals: {
 		react: 'React',
 		'react-dom': 'ReactDOM'
