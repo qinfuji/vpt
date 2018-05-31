@@ -1,4 +1,4 @@
-import Pane from './components/pane'
-import SplitPane from '../components/split-pane'
+import Pane from './components/pane';
+import SplitPane from './components/split-pane';
 
-export { Pane, SplitPane }
+export { Pane, SplitPane };

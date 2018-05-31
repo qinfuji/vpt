@@ -3,6 +3,7 @@
 
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -12,15 +13,15 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: isProduction ? 'vpt-components.min.js' : 'vpt-components.js',
-		libraryTarget: 'var',
-		library: 'vpt-components',
+		libraryTarget: 'umd',
+		library: 'vpt-components'
 	},
 	module: {
 		rules: [
 			{
 				test: /\.jsx?$/,
 				loader: 'babel-loader',
-				include: [path.resolve(__dirname, 'src')],
+				include: [path.resolve(__dirname, 'src')]
 			},
 			{
 				test: /\.less$/,
@@ -28,27 +29,35 @@ module.exports = {
 					MiniCssExtractPlugin.loader,
 					{ loader: 'css-loader', options: { sourceMap: !isProduction } },
 					{ loader: 'postcss-loader', options: { sourceMap: !isProduction } },
-					{ loader: 'less-loader', options: { sourceMap: !isProduction } },
-				],
-			},
-		],
+					{ loader: 'less-loader', options: { sourceMap: !isProduction } }
+				]
+			}
+		]
 	},
 	resolve: {
-		extensions: ['.js', '.jsx'],
+		extensions: ['.js', '.jsx']
 	},
-	devtool: isProduction ? false : 'source-map',
+	optimization: {
+		minimize: true,
+		minimizer: [
+			new UglifyJsPlugin({
+				sourceMap: !isProduction
+			})
+		]
+	},
+	devtool: isProduction ? false : 'cheap-module-inline-source-map',
 	externals: {
 		react: 'React',
-		'react-dom': 'ReactDOM',
+		'react-dom': 'ReactDOM'
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: 'lucid.css',
-			disable: !isProduction,
+			filename: 'vpt-components.css',
+			disable: !isProduction
 		}),
 		new MiniCssExtractPlugin({
 			filename: 'index.css',
-			disable: !isProduction,
-		}),
-	],
+			disable: !isProduction
+		})
+	]
 };

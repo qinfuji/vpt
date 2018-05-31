@@ -6,8 +6,15 @@
     "node": ">=6.0.0"
   },
   "workspaces": {
-    "packages": ["packages/*"],
-    "nohoist": ["**/vpt-ide", "**/vpt-ide/**"]
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/vpt-ide",
+      "**/vpt-ide/**",
+      "**/vpt-components",
+      "**/vpt-components/**"
+    ]
   },
   "scripts": {
     "docs:prepare": "gitbook install",

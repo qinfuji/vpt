@@ -9,12 +9,11 @@ import { setOptions } from '@storybook/addon-options';
 import { exampleStory } from '../.storybook/lucid-docs-addon';
 
 import SyntaxHighlighter, {
-	registerLanguage,
+	registerLanguage
 } from 'react-syntax-highlighter/prism-light';
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
 import okaidia from 'react-syntax-highlighter/styles/prism/okaidia';
 import '../src/index.less';
-import ColorPalette from './color-palette';
 
 registerLanguage('jsx', jsx);
 
@@ -22,7 +21,7 @@ const loadAllKeys = (reqContext, rawContext) => {
 	return _.map(_.get(reqContext, 'keys', _.constant([]))(), key => ({
 		key,
 		module: reqContext(key),
-		raw: rawContext(key),
+		raw: rawContext(key)
 	}));
 };
 
@@ -40,7 +39,7 @@ const getExamplesFromContext = (reqExamples, rawContext) =>
 	_.map(loadAllKeys(reqExamples, rawContext), ({ key, module, raw }) => ({
 		name: _.join(_.reject(_.words(key), w => /^(\d+)|jsx?$/.test(w)), ' '),
 		Example: getDefaultExport(module),
-		source: raw,
+		source: raw
 	}));
 
 const checkIconSVG = `<?xml version="1.0" encoding="utf-8"?>
@@ -55,16 +54,16 @@ const styles = {
 		color: '#2abbb0',
 		textDecoration: 'underline',
 		cursor: 'pointer',
-		outline: 'none',
+		outline: 'none'
 	},
 	ul: {
 		listStyleImage: `url('data:image/svg+xml;base64,${window.btoa(
 			checkIconSVG
-		)}')`,
+		)}')`
 	},
 	li: {
-		margin: '8px 0',
-	},
+		margin: '8px 0'
+	}
 };
 
 const compile = marksy({
@@ -78,11 +77,11 @@ const compile = marksy({
 	elements: {
 		a: props => <a {...props} style={styles.link} />,
 		ul: props => <ul {...props} style={styles.ul} />,
-		li: props => <li {...props} style={styles.li} />,
+		li: props => <li {...props} style={styles.li} />
 	},
 	components: {
-		LinkTo: props => <LinkTo {...props} style={styles.link} />,
-	},
+		LinkTo: props => <LinkTo {...props} style={styles.link} />
+	}
 });
 
 class ArticlePage extends React.Component {
@@ -96,7 +95,7 @@ class ArticlePage extends React.Component {
 		}
 
 		setOptions({
-			showAddonPanel: false,
+			showAddonPanel: false
 		});
 	}
 
@@ -105,23 +104,23 @@ class ArticlePage extends React.Component {
 
 		return (
 			<article
-				style={{
+    style={{
 					width: '100%',
-					height: '100%',
+					height: '100%'
 				}}
 			>
 				<a href="https://github.com/appnexus/lucid">
 					<img
-						style={{
+    alt="Fork me on GitHub"
+    data-canonical-src="//s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
+    src="//camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+    srcSet="//aral.github.io/fork-me-on-github-retina-ribbons/right-graphite@2x.png 2x"
+    style={{
 							position: 'absolute',
 							top: 0,
 							right: 0,
-							border: 0,
+							border: 0
 						}}
-						src="//camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-						srcSet="//aral.github.io/fork-me-on-github-retina-ribbons/right-graphite@2x.png 2x"
-						alt="Fork me on GitHub"
-						data-canonical-src="//s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
 					/>
 				</a>
 				{children}
@@ -130,7 +129,7 @@ class ArticlePage extends React.Component {
 	}
 }
 
-storiesOf('vpt-components', module)
+storiesOf('vpt-components', module);
 
 const loadedComponents = require('./load-components');
 
@@ -151,46 +150,46 @@ _.reduce(
 			<ArticlePage>
 				<h1>{_.capitalize(category)}</h1>
 				<section
-					style={{
+    style={{
 						display: 'flex',
-						flexWrap: 'wrap',
+						flexWrap: 'wrap'
 					}}
 				>
 					{_.map(subGroupedComponents, (componentSubGroup, subCategory) => (
 						<section
-							key={subCategory}
-							style={{
+    key={subCategory}
+    style={{
 								marginRight: 10,
 								marginBottom: 10,
 								backgroundColor: 'rgb(247,247,247)',
 								padding: 6,
-								width: 200,
+								width: 200
 							}}
 						>
 							{subCategory !== 'misc' && (
 								<h3
-									style={{
+    style={{
 										marginTop: 0,
-										textAlign: 'center',
+										textAlign: 'center'
 									}}
 								>
 									{_.capitalize(subCategory)}
 								</h3>
 							)}
 							<section
-								style={{
+    style={{
 									display: 'flex',
-									flexDirection: 'column',
+									flexDirection: 'column'
 								}}
 							>
 								{_.map(componentSubGroup, ({ name }) => (
 									<div
-										key={name}
-										style={{
-											margin: 10,
+    key={name}
+    style={{
+											margin: 10
 										}}
 									>
-										<LinkTo style={styles.link} kind={name}>
+										<LinkTo kind={name} style={styles.link}>
 											{name}
 										</LinkTo>
 									</div>
@@ -204,7 +203,6 @@ _.reduce(
 	},
 	storiesOf('Categories', module)
 );
-
 
 const storiesOfAddSequence = [];
 
@@ -226,10 +224,10 @@ _.forEach(
 							code: source,
 							example: Example,
 							path: [componentName],
-							options: { showAddonPanel: true },
+							options: { showAddonPanel: true }
 						})
 					);
-				},
+				}
 			]);
 		});
 	}
@@ -247,7 +245,7 @@ requireExampleDotStoriesJs.keys().forEach(filename => {
 		componentName,
 		() => {
 			requireExampleDotStoriesJs(filename);
-		},
+		}
 	]);
 });
 _.forEach(_.sortBy(storiesOfAddSequence, _.property('0')), ([, addStory]) =>

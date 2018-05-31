@@ -9,7 +9,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'cheap-module-inline-source-map',
+  devtool:
+    process.env.NODE_ENV == 'development'
+      ? 'cheap-module-inline-source-map'
+      : false,
   mode: process.env.NODE_ENV,
   cache: true,
   context: path.join(__dirname, 'app/web'),

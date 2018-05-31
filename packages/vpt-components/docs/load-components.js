@@ -7,10 +7,8 @@ const getDefaultExport = module => {
 
 module.exports = [
 	{
-		name: 'Accordion',
-		component: getDefaultExport(
-			require('../src/components/Accordion/Accordion')
-		),
+		name: 'Tabs',
+		component: getDefaultExport(require('../src/components/Tbas/Tabs')),
 		examplesContext: require.context(
 			'../src/components/Accordion/examples',
 			true,
@@ -20,6 +18,6 @@ module.exports = [
 			'!!raw-loader!../src/components/Accordion/examples',
 			true,
 			/\.jsx?$/
-		),
+		)
 	}
 ];

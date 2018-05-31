@@ -1,3 +1,3 @@
-import SplitPane from './SplitPane'
+import SplitPane from './SplitPane';
 
-export default SplitPane
+export default SplitPane;
