@@ -1,119 +1,12 @@
 {
-	"env": {
-		"test": {
-			"plugins": [
-				[
-					"transform-class-properties",
+	"presets": [
+			[
+					"env",
 					{
-						"spec": true
+							"modules": false
 					}
-				],
-				["transform-object-rest-spread"],
-				["babel-plugin-transform-require-ignore", {
-					"extensions": [".less", ".css"]
-				}],
 			],
-			"presets": [
-				["env", {
-					"targets": {
-						"browsers": ["last 2 versions"]
-					}
-				}],
-				"react"
-			]
-		},
-		"development": {
-			"plugins": [
-				[
-					"transform-class-properties",
-					{
-						"spec": true
-					}
-				],
-				["transform-object-rest-spread"],
-				"lodash"
-			],
-			"presets": [
-				["env", {
-					"targets": {
-						"browsers": ["last 2 versions"]
-					}
-				}],
-				"react"
-			]
-		},
-		"documentation": {
-			"plugins": [
-				[
-					"transform-class-properties",
-					{
-						"spec": true
-					}
-				],
-				["transform-object-rest-spread"],
-				"lodash"
-			],
-			"presets": [
-				["env", {
-					"targets": {
-						"browsers": ["last 2 versions"]
-					}
-				}],
-				"react"
-			]
-		},
-		"production": {
-			"plugins": [
-				[
-					"transform-class-properties",
-					{
-						"spec": true
-					}
-				],
-				["transform-object-rest-spread"],
-				["babel-plugin-transform-require-ignore", {
-					"extensions": [".less", ".css"]
-				}],
-				["react-peek/babel", {
-					"minifyStatics": true
-				}],
-				"lodash"
-			],
-			"presets": [
-				["env", {
-					"targets": {
-						"browsers": ["last 2 versions"]
-					}
-				}],
-				"react"
-			]
-		},
-		"modules": {
-			"plugins": [
-				[
-					"transform-class-properties",
-					{
-						"spec": true
-					}
-				],
-				["transform-object-rest-spread"],
-				["babel-plugin-transform-require-ignore", {
-					"extensions": [".less", ".css"]
-				}],
-				["react-peek/babel", {
-					"minifyStatics": true
-				}],
-				"lodash"
-			],
-			"presets": [
-				["env", {
-					"targets": {
-						"browsers": ["last 2 versions"]
-					},
-					"modules": false
-				}],
-				"react"
-			]
-		}
-	}
+			"stage-0",
+			"react"
+	]
 }
